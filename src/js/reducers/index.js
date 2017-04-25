@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 
-import useProcessesReducer from './useProcessesReducer'
+import useProcesses from './useProcessesReducer'
+import user from './userReducer'
 
 export default combineReducers({
-  useProcessesReducer
+  useProcesses, user
 });

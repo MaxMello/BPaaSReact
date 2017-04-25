@@ -1,6 +1,6 @@
-import React from 'react'
-import '../../style/bootstrap/less/bootstrap.less'
-import Navigation from './Navigation.js'
+import React from 'react';
+import '../../style/bootstrap/less/bootstrap.less';
+import Navigation from './Navigation.js';
 
 class App extends React.Component {
 
