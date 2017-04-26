@@ -1,0 +1,14 @@
+services:
+- docker:dind
+
+stages:
+- build
+
+build_image:
+  stage: build
+  only:
+  - master
+  script:
+  - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URI
+  - docker build -t $REGISTRY_URI/$IMAGE_TAG .
+  - docker push $REGISTRY_URI/$IMAGE_TAG
