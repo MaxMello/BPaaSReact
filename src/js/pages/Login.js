@@ -1,13 +1,9 @@
 import React from 'react'
 import '../../style/bootstrap/less/bootstrap.less';
-const RB = require('react-bootstrap');
-let Icon = require('react-fontawesome');
-let Button = RB.Button;
-let Row = RB.Row;
-let Col = RB.Col;
-import { connect } from 'react-redux';
+import { Icon } from "react-fontawesome";
+import {Row, Col, Button } from "react-bootstrap";
 import { login, signIn, logout } from "./../actions/userActions";
-
+import { connect } from 'react-redux';
 
 @connect((store) => {
     return store.user;
@@ -27,6 +23,7 @@ export default class Login extends React.Component {
     }
 
     loginUser(){
+        console.log("Login...");
         this.props.dispatch(login(this.state.name, ""));
     }
 
@@ -36,6 +33,8 @@ export default class Login extends React.Component {
     }
 
     render() {
+        console.log(this);
+        const isRedirect = this.props.location.query.redirect === "true";
         const { user } = this.props;
         const userExists = user !== null;
         let userText = "Please login to the platform";
@@ -47,6 +46,7 @@ export default class Login extends React.Component {
             <div>
                 <Row>
                     <Col xs={12} className="text-center">
+                        {isRedirect ? <div>Please login first.</div> : ""}
                         <h1>Login</h1>
                         <p>
                             {userText}

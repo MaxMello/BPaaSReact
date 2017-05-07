@@ -1,25 +1,26 @@
-import React from 'react'
-import '../../style/bootstrap/less/bootstrap.less'
-const RB = require('react-bootstrap');
-let Row = RB.Row;
-let Col = RB.Col;
+import React from 'react';
+import '../../style/bootstrap/less/bootstrap.less';
+import { Row, Col } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { loadProcesses } from "./../actions/useProcessesActions";
-
+import AuthenticatedComponent from "./AuthenticatedComponent";
 
 @connect((store) => {
-    return store.useProcesses;
+    return {user: store.user, processes: store.processes, useProcesses: store.useProcesses}
 })
-export default class UseProcesses extends React.Component {
+export default class UseProcesses extends AuthenticatedComponent{
+
+    constructor(props){
+        super(props);
+    }
 
     load(){
         this.props.dispatch(loadProcesses(this.props.loading));
     }
 
     render() {
-        const {processes, loading} = this.props;
-        console.log(processes);
-        console.log("Loading:" + loading);
+        super.render();
+        const {processes, loading} = this.props.useProcesses;
         const isLoading =  loading ? "True" : "False";
         const processCols = processes.map((process, i) => (<Col key={i} xs={12}>{process.name}</Col>));
         return (

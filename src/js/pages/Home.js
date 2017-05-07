@@ -1,10 +1,7 @@
 import React from 'react'
 import '../../style/bootstrap/less/bootstrap.less'
-const RB = require('react-bootstrap');
-let Icon = require('react-fontawesome');
-let Button = RB.Button;
-let Row = RB.Row;
-let Col = RB.Col;
+import { Icon } from "react-fontawesome";
+import { Row, Col, Button } from "react-bootstrap";
 
 export default class Home extends React.Component {
     render() {
@@ -15,7 +12,6 @@ export default class Home extends React.Component {
                         <h1>Business Processes customized for your needs.</h1>
                     </Col>
                 </Row>
-
             </div>
         );
     }

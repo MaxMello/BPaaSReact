@@ -2,11 +2,10 @@ const initialState = {
     user: null
 };
 
-export default function reducer(
-    state=initialState, action) {
-
-    switch (action.type) {
+export default function reducer(state=initialState, action) {
+    switch(action.type){
         case "LOGIN": {
+            console.log("Login Action");
             return {...state, user: action.payload};
         }
         case "SIGN_IN": {
@@ -15,7 +14,7 @@ export default function reducer(
         case "LOGOUT": {
             return {...state, user: null};
         }
-    }
 
+    }
     return state;
 }

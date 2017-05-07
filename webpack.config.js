@@ -4,6 +4,7 @@ const path = require('path');
 
 const port = 8000;
 const srcPath =path.join(__dirname, "src");
+const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin")["default"];
 
 const config = {
     context: srcPath,
@@ -48,6 +49,7 @@ const config = {
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+        new UnusedFilesWebpackPlugin(),
     ],
     resolve: {
         alias: {

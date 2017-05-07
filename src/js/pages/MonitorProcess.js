@@ -1,13 +1,16 @@
 import React from 'react'
 import '../../style/bootstrap/less/bootstrap.less'
-const RB = require('react-bootstrap');
-let Icon = require('react-fontawesome');
-let Button = RB.Button;
-let Row = RB.Row;
-let Col = RB.Col;
+import { Icon } from "react-fontawesome";
+import { Row, Col, Button } from "react-bootstrap";
+import { connect } from 'react-redux';
+import AuthenticatedComponent from "./AuthenticatedComponent";
 
-export default class MonitorProcess extends React.Component {
+@connect((store) => {
+    return {user: store.user, processes: store.processes, manageProcesses: store.manageProcesses }
+})
+export default class MonitorProcess extends AuthenticatedComponent {
     render() {
+        super.render();
         return (
             <div>
                 <Row>

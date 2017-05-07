@@ -1,19 +1,23 @@
 import React from 'react';
 import '../../style/bootstrap/less/bootstrap.less';
 import Navigation from './Navigation.js';
+import "normalize.css";
+import { connect } from 'react-redux';
 
-class App extends React.Component {
+@connect((store) => {
+    return store.user;
+})
+export default class App extends React.Component {
 
     render() {
         const { location } = this.props;
         const containerStyle = {
             marginTop: "20px"
         };
-        console.log("layout");
 
         return (
             <div>
-                <Navigation location={ location }/>
+                <Navigation location={ location } user={this.props.user} />
                 <div className="container" style={ containerStyle }>
                     <div className="row">
                         <div className="col-lg-12">
@@ -25,5 +29,3 @@ class App extends React.Component {
         );
     }
 }
-
-export default App;

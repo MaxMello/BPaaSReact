@@ -1,0 +1,54 @@
+{
+  "user": {
+    "status": "NO_USER, LOGGING_IN, LOGIN_FAILED, LOGGING_OUT, EXISTS",
+    "userData": { // May be null
+      "name": "string",
+      "group": "string"
+    }
+  },
+  "processes": {
+    "byIds": {
+      "id": {
+        "id": 1,
+        "name": "string",
+        "description": "string",
+        "services": [
+          1,
+          2,
+          4,
+          6
+        ]
+      }
+    },
+    "allIds": [
+      1, 2, 3, 4
+    ]
+  },
+  "services": {
+    "byIds":{
+      "id": {
+        "id": 1,
+        "name": "string",
+        "description": "String"
+      }
+    },
+    "allIds":[
+      1, 2, 3, 4
+    ]
+  },
+  "useProcesses": {
+    "status": "NO_LOADING, LOADING, LOADING_FAILED, LOADING_SUCCESS",
+    "processes": [1, 2, 6, 8],
+    "activeProcess": 1
+  },
+  "manageProcesses": {
+    "status": "NO_LOADING, LOADING, LOADING_FAILED, LOADING_SUCCESS",
+    "processes": [1, 3, 4, 5],
+    "activeProcess": 1
+  },
+  "manageServices": {
+    "status": "NO_LOADING, LOADING, LOADING_FAILED, LOADING_SUCCESS",
+    "services": [1, 2, 3, 4],
+    "activeService": 1
+  }
+}

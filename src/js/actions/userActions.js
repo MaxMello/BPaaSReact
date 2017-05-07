@@ -1,4 +1,5 @@
 export function login(name, password){
+    console.log("Login!");
     return {
         type: "LOGIN",
         payload: {

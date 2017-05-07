@@ -1,18 +1,17 @@
 import React from 'react';
 import { IndexLink, Link } from "react-router";
 import '../../style/bootstrap/less/bootstrap.less';
-const RB = require('react-bootstrap');
-let Icon = require('react-fontawesome');
-let Navbar = RB.Navbar;
-let NavDropdown = RB.NavDropdown;
-let MenuItem = RB.MenuItem;
-let NavItem = RB.NavItem;
-let Nav = RB.Nav;
-let Button = RB.Button;
+import { Icon } from "react-fontawesome";
+import { Navbar, NavDropdown, MenuItem, NavItem, Nav, Button } from "react-bootstrap";
 
 class Navigation extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
     render() {
-        const { location } = this.props;
+        const { location, user } = this.props;
+        const loginText = user !== null ? user.name : "Login";
         const homeClass = location.pathname === "/" ? "active": "";
         const myProcessesClass = location.pathname.match(/^\/my-processes/) ? "active" : "";
         const manageProcessesClass = location.pathname.match(/^\/processes/) ? "active" : "";
@@ -47,7 +46,7 @@ class Navigation extends React.Component {
                         </NavDropdown>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem className={loginClass}><Link style={linkStyle} to="login">Login</Link></NavItem>
+                        <NavItem className={loginClass}><Link style={linkStyle} to="login">{loginText}</Link></NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
