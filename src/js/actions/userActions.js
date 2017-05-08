@@ -1,37 +1,25 @@
-export function login(name, password){
+import { USER_STATUS, USER_ACTIONS } from "../constants/constants";
+
+
+export function login(name){
     console.log("Login!");
     return {
-        type: "LOGIN",
+        type: USER_ACTIONS.LOGIN,
         payload: {
-            "id": 1,
-            "name": name,
-            "organisation": "HAW Hamburg",
-            "groups": [
-                "PROCESS_USER", "PROCESS_PROVIDER", "SERVICE_PROVIDER"
-            ]
-        }
-    }
-}
-
-export function signIn(name, organisation, password){
-    return {
-        type: "SIGN_IN",
-        payload: {
-            "id": 1,
-            "name": name,
-            "organisation": organisation,
-            "groups": [
-                "PROCESS_USER", "PROCESS_PROVIDER", "SERVICE_PROVIDER"
-            ]
+            "status": USER_STATUS.EXISTS,
+            "userData": {
+                "name": name
+            }
         }
     }
 }
 
 export function logout(){
     return {
-        type: "LOGOUT",
+        type: USER_ACTIONS.LOGOUT,
         payload: {
-            "success": true
+            "status": USER_STATUS.NO_USER,
+            "userData": {}
         }
     }
 }

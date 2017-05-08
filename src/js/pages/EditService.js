@@ -13,12 +13,7 @@ export default class EditService extends AuthenticatedComponent {
         super.render();
         return (
             <div>
-                <Row>
-                    <Col xs={12} className="text-center">
-                        <h1>Edit Service</h1>
-                    </Col>
-                </Row>
-
+                <h1>Edit Service</h1>
             </div>
         );
     }

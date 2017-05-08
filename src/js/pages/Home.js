@@ -7,11 +7,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
-                <Row>
-                    <Col xs={12} className="text-center">
-                        <h1>Business Processes customized for your needs.</h1>
-                    </Col>
-                </Row>
+                <h1>Business Processes customized for your needs.</h1>
             </div>
         );
     }

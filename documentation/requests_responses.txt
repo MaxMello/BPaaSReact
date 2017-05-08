@@ -1,0 +1,91 @@
+/*
+* List of all needed request / response pairs
+*/
+
+// Login is not an actual request for the server. You just set the name as a key frontend and it will be send for
+// every other request
+
+// Use Processes page
+Route: /use_processes
+request: {
+    "user": "name <String>"
+}
+
+// Gebe mir alle Prozesse zurück, für die der gegebene User als Prozessnutzer eingetragen ist
+response: {
+    processes: [
+        {
+            "id". "Unique String of chars and / or numbers",
+            "name": "Human readable name for process",
+            "description": "Human readable description text for process",
+            "services": [
+                <Liste an Service IDs>
+            ]
+        },
+        ...
+    ],
+    services: [ // <Liste aller Services, die als ID in einem der Prozesse aus "processes" referenziert werden>
+        {
+            "id": "Unique String of chars and / or numbers",
+            "name": "Human readable name for service",
+            "description": "Human readable description text for service",
+            "baseURL": "URL, um Instanz des Services anzufordern" // Keine Ahnung ob ich die Frontend brauche
+        },
+        ...
+    ]
+}
+
+// Manage Processes page
+Route /manage_processes
+request: {
+    "user": "name <String>"
+}
+
+// Gebe mir alle Prozesse zurück, für die der gegebene User als Prozessverwalter eingetragen ist
+response: {
+    processes: [
+        {
+            "id". "Unique String of chars and / or numbers",
+            "name": "Human readable name for process",
+            "description": "Human readable description text for process",
+            "services": [
+                <Liste an Service IDs>
+            ],
+            "monitoringData": {
+                ... // Was auch immer hier existiert
+            }
+        },
+        ...
+    ],
+    services: [ // <Liste aller Services, die als ID in einem der Prozesse aus "processes" referenziert werden>
+        {
+            "id": "Unique String of chars and / or numbers",
+            "name": "Human readable name for service",
+            "description": "Human readable description text for service",
+            "baseURL": "URL, um Instanz des Services anzufordern" // Keine Ahnung ob ich die Frontend brauche
+        },
+        ...
+    ]
+}
+
+//Manage Services
+Route: /manage_services
+request: {
+    "user": "name <String>"
+}
+
+// Gebe mir alle Services zurück, für die der gegebene User als Serviceanbieter eingetragen ist
+response: {
+    services: [ // <Liste aller Services, die als ID in einem der Prozesse aus "processes" referenziert werden>
+        {
+            "id": "Unique String of chars and / or numbers",
+            "name": "Human readable name for service",
+            "description": "Human readable description text for service",
+            "baseURL": "URL, um Instanz des Services anzufordern" // Keine Ahnung ob ich die Frontend brauche,
+            "monitoringData": {
+                ... // Was auch immer hier existiert
+            }
+        },
+        ...
+    ]
+}

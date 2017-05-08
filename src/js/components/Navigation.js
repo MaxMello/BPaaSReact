@@ -1,8 +1,8 @@
 import React from 'react';
 import { IndexLink, Link } from "react-router";
-import '../../style/bootstrap/less/bootstrap.less';
 import { Icon } from "react-fontawesome";
-import { Navbar, NavDropdown, MenuItem, NavItem, Nav, Button } from "react-bootstrap";
+import { Navbar, NavDropdown, MenuItem, NavItem, Nav } from "react-bootstrap";
+import { USER_STATUS } from "../constants/constants";
 
 class Navigation extends React.Component {
     constructor(props){
@@ -10,8 +10,9 @@ class Navigation extends React.Component {
     }
 
     render() {
+        console.log(this);
         const { location, user } = this.props;
-        const loginText = user !== null ? user.name : "Login";
+        const loginText = user.status === USER_STATUS.EXISTS ? user.userData.name : "Login";
         const homeClass = location.pathname === "/" ? "active": "";
         const myProcessesClass = location.pathname.match(/^\/my-processes/) ? "active" : "";
         const manageProcessesClass = location.pathname.match(/^\/processes/) ? "active" : "";
@@ -21,8 +22,12 @@ class Navigation extends React.Component {
             "color": "white"
         };
 
+        const navbarStyle = {
+            "marginBottom": "0"
+        };
+
         return (
-            <Navbar collapseOnSelect>
+            <Navbar collapseOnSelect style={navbarStyle}>
                 <Navbar.Header>
                     <Navbar.Brand className={homeClass}>
                         <Link activeStyle={linkStyle} to="/">

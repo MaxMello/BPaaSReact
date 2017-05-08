@@ -1,18 +1,17 @@
+import { USER_STATUS, USER_ACTIONS } from "../constants/constants";
+
 const initialState = {
-    user: null
+    "status": USER_STATUS.NO_USER,
+    "userData": {}
 };
 
 export default function reducer(state=initialState, action) {
     switch(action.type){
-        case "LOGIN": {
-            console.log("Login Action");
-            return {...state, user: action.payload};
+        case USER_ACTIONS.LOGIN: {
+            return {...state, ...action.payload};
         }
-        case "SIGN_IN": {
-            return {...state, user: action.payload};
-        }
-        case "LOGOUT": {
-            return {...state, user: null};
+        case USER_ACTIONS.LOGOUT: {
+            return {...state, ...action.payload};
         }
 
     }

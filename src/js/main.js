@@ -29,7 +29,8 @@ const app = document.getElementById('app');
 const store = createStore(
     combineReducers({user, processes, useProcesses, manageProcesses, services, manageServices}),
     applyMiddleware(promise(), thunk, logger()));
-
+console.log("STORE");
+console.log(store);
 
 ReactDOM.render(
     <Provider store={store}>

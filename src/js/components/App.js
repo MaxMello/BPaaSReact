@@ -5,14 +5,14 @@ import "normalize.css";
 import { connect } from 'react-redux';
 
 @connect((store) => {
-    return store.user;
+    return {user: store.user }
 })
 export default class App extends React.Component {
 
     render() {
         const { location } = this.props;
         const containerStyle = {
-            marginTop: "20px"
+            marginTop: "0"
         };
 
         return (
