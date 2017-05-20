@@ -1,0 +1,32 @@
+@media(max-width:767px){
+    .banner {
+        max-height: 200px;
+    }
+    .bannerText{
+        margin-top: 110px;
+    }
+}
+@media(min-width:768px){
+    .banner{
+        max-height: 300px;
+    }
+    .bannerText{
+        margin-top: 190px;
+    }
+}
+@media(min-width:992px){
+    .banner{
+        max-height: 400px;
+    }
+    .bannerText{
+        margin-top: 250px;
+    }
+}
+@media(min-width:1200px){
+    .banner{
+        max-height: 400px;
+    }
+    .bannerText{
+        margin-top: 230px;
+    }
+}

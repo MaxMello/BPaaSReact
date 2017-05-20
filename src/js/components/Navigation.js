@@ -31,7 +31,7 @@ class Navigation extends React.Component {
                 <Navbar.Header>
                     <Navbar.Brand className={homeClass}>
                         <Link activeStyle={linkStyle} to="/">
-                            <b>BPaaS</b>
+                            <b>Home</b>
                         </Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />

@@ -14,15 +14,32 @@ export default class UseProcesses extends AuthenticatedComponent{
         super(props);
     }
 
+    componentDidMount(){
+        this.props.dispatch(loadProcesses());
+    }
+
     load(){
-        this.props.dispatch(loadProcesses(this.props.loading));
+        this.props.dispatch(loadProcesses());
     }
 
     render() {
         super.render();
-        const {processes, loading} = this.props.useProcesses;
-        const isLoading =  loading ? "True" : "False";
-        const processList = processes.map((process, i) => (<ProcessElement key={i} process={process}/>));
+        const { useProcesses } = this.props.useProcesses;
+        let info = (<p></p>);
+        switch(useProcesses.status){
+            case "FETCHING": {
+                info = (<p>Fetching...</p>);
+                break;
+            }
+            case "SUCCESS": {
+                info = (<p></p>);
+                break;
+            }
+            case "ERROR": {
+                info = (<p>Error!</p>);
+                break;
+            }
+        }
         return (
             <div>
                 <Row>
@@ -31,7 +48,7 @@ export default class UseProcesses extends AuthenticatedComponent{
                         <button onClick={this.load.bind(this)}>Lade Prozesse</button>
                     </Col>
                 </Row>
-                {processList}
+                {info}
             </div>
         );
     }
