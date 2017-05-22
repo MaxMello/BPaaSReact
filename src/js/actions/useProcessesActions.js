@@ -1,4 +1,5 @@
-import { ROUTES } from '../constants/routes'
+import { ROUTES } from '../constants/routes';
+import { ACTIONS } from '../constants/constants';
 
 /*
  * Actions and functions for process overview page
@@ -24,20 +25,20 @@ function fetchProcesses(user) {
 
 function fetchProcessesRequest(){
     return {
-        type: "FETCH_REQUEST"
+        type: ACTIONS.USE_PROCESSES_FETCH_REQUEST
     }
 }
 
 function fetchProcessesSuccess(payload) {
     return {
-        type: "FETCH_SUCCESS",
+        type: ACTIONS.USE_PROCESSES_FETCH_REQUEST,
         payload
     }
 }
 
 function fetchProcessesError() {
     return {
-        type: "FETCH_ERROR"
+        type: ACTIONS.USE_PROCESSES_FETCH_ERROR
     }
 }
 

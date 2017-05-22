@@ -38,16 +38,19 @@ class Navigation extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem className={myProcessesClass}>
-                            <Link to="my-processes" style={linkStyle}>My Processes</Link>
-                        </NavItem>
-                        <NavDropdown className={manageProcessesClass} title="Processes" id="basic-nav-dropdown">
-                            <MenuItem><Link to="processes">Processes Overview</Link></MenuItem>
-                            <MenuItem><Link to="processes/edit/">Create Process</Link></MenuItem>
+                        <NavDropdown className={myProcessesClass} title="Use Business Processes" id="basic-nav-dropdown">
+                            <MenuItem><Link to="my-processes">Business Processes</Link></MenuItem>
+                            <MenuItem><Link to="my-billing">Billing</Link></MenuItem>
                         </NavDropdown>
-                        <NavDropdown title="Services" id="basic-nav-dropdown" className={servicesClass}>
-                            <MenuItem><Link to="services">Services Overview</Link></MenuItem>
+                        <NavDropdown className={manageProcessesClass} title="Provide Processes" id="basic-nav-dropdown">
+                            <MenuItem><Link to="processes">Business Processes</Link></MenuItem>
+                            <MenuItem><Link to="processes/edit/">Create Process</Link></MenuItem>
+                            <MenuItem><Link to="processes/monitor/">Monitoring</Link></MenuItem>
+                        </NavDropdown>
+                        <NavDropdown title="Provide Services" id="basic-nav-dropdown" className={servicesClass}>
+                            <MenuItem><Link to="services">Service Overview</Link></MenuItem>
                             <MenuItem><Link to="services/edit/">Create Service</Link></MenuItem>
+                            <MenuItem><Link to="services/monitor/">Monitoring</Link></MenuItem>
                         </NavDropdown>
                     </Nav>
                     <Nav pullRight>

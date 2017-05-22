@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon } from "react-fontawesome";
-import {Row, Col } from "react-bootstrap";
+import {Row, Col, FormGroup, FormControl, Button, Alert } from "react-bootstrap";
 import { login, logout } from "./../actions/userActions";
 import { connect } from 'react-redux';
 import { USER_STATUS } from "../constants/constants";
@@ -42,28 +42,75 @@ export default class Login extends React.Component {
         const userExists = user.status === USER_STATUS.EXISTS && user.userData !== null;
         let userText = "Please login to the platform";
         if(isRedirect && userExists){
-            console.log("Login successful, redirect back");
             this.props.router.goBack();
-        } else if(isRedirect && !userExists){
-            userText = "Please login before accessing this part of the website.";
-        } else if (!isRedirect && userExists){
-            userText = "Welcome ".concat(user.userData.name).concat("!");
         }
-        const actionButton = userExists ? ( <button onClick={this.logoutUser}>Logout</button>) :
-            (<button onClick={this.loginUser}>Login</button>);
+
+        const alertStyle = {
+            "marginTop": 20
+        };
+
+        const buttonStyle = {
+            "marginTop": 5
+        };
+
+        const alert = (
+            <Alert bsStyle="warning" style={alertStyle}>
+                Please login or create an account before accessing this part of the website.
+            </Alert>
+        );
+
+        const nameInput = (
+            <FormControl type="text"
+                         value={this.state.name}
+                         className="text-center"
+                         placeholder="Username"
+                         onChange={this.handleNameChange} />
+        );
+
+        const nameDisplay = (
+            <FormControl type="text"
+                         value={user.userData.name}
+                         className="text-center"
+                         disabled/>
+        );
+
+        const actionButton = userExists ? (
+                <Button bsStyle="danger" style={buttonStyle} bsSize="large" block onClick={this.logoutUser}>Logout</Button>
+            ) : (
+                <Button bsStyle="primary" style={buttonStyle} bsSize="large" block onClick={this.loginUser}>Login</Button>
+            );
+
+        const title = userExists ? "Account" : "Create Account or Log In";
+
+        const nameHTML = userExists ? nameDisplay : nameInput;
+
         return (
             <div>
-                <h1>Login</h1>
                 <Row>
                     <Col xs={12} className="text-center">
-                        <p>
-                            {userText}
-                        </p>
-                        <label>
-                            Name:
-                            <input type="text" value={this.state.name} onChange={this.handleNameChange} />
-                        </label>
-                        {actionButton}
+                        <h1>{title}</h1>
+                    </Col>
+                </Row>
+                <Row className="loginGroup">
+                    <Col xs={12} className="text-center">
+                        <FormGroup bsSize="large">
+                            <Row>
+                                <Col xs={10} sm={8} md={6} lg={6} xsOffset={1} smOffset={2} mdOffset={3} lgOffset={3}>
+                                    {isRedirect && !userExists ? alert : ""}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={10} sm={8} md={6} lg={6} xsOffset={1} smOffset={2} mdOffset={3} lgOffset={3}>
+                                    {nameHTML}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={10} sm={8} md={6} lg={6} xsOffset={1} smOffset={2} mdOffset={3} lgOffset={3}>
+                                    {actionButton}
+                                </Col>
+                            </Row>
+
+                        </FormGroup>
                     </Col>
                 </Row>
 

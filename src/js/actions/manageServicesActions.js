@@ -1,7 +1,8 @@
-import { ROUTES } from '../constants/routes'
+import { ROUTES } from '../constants/routes';
+import { ACTIONS } from '../constants/constants';
 
 /*
- * Actions and functions for process overview page
+ * Actions and functions for service overview page
  */
 
 export function loadServices(user) {
@@ -24,23 +25,23 @@ function fetchServices(user) {
 
 function fetchServicesRequest(){
     return {
-        type: "FETCH_REQUEST"
+        type: ACTIONS.MANAGE_SERVICES_FETCH_REQUEST
     }
 }
 
 function fetchServicesSuccess(payload) {
     return {
-        type: "FETCH_SUCCESS",
+        type: ACTIONS.MANAGE_SERVICES_FETCH_SUCCESS,
         payload
     }
 }
 
 function fetchServicesError() {
     return {
-        type: "FETCH_ERROR"
+        type: ACTIONS.MANAGE_SERVICES_FETCH_ERROR
     }
 }
 
 /*
- * Actions and functions for single process page
+ * Actions and functions for single service page
  */

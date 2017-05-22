@@ -5,6 +5,10 @@
     .bannerText{
         margin-top: 110px;
     }
+    .loginGroup {
+        margin-top: 20px;
+    }
+
 }
 @media(min-width:768px){
     .banner{
@@ -12,6 +16,13 @@
     }
     .bannerText{
         margin-top: 190px;
+    }
+    .row {
+        margin-left: 0;
+        margin-right:0;
+    }
+    .loginGroup {
+        margin-top: 40px;
     }
 }
 @media(min-width:992px){
@@ -21,6 +32,9 @@
     .bannerText{
         margin-top: 250px;
     }
+    .loginGroup {
+        margin-top: 80px;
+    }
 }
 @media(min-width:1200px){
     .banner{
@@ -29,4 +43,30 @@
     .bannerText{
         margin-top: 230px;
     }
+    .loginGroup {
+        margin-top: 120px;
+    }
+}
+
+.successButton:after{
+    content:'Success';
+}
+.successButton:hover:after{
+    content:'Reload';
+}
+.successButton:hover{
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+.errorButton:after{
+    content:'Error';
+}
+.errorButton:hover:after{
+    content:'Reload';
+}
+.errorButton:hover{
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
 }

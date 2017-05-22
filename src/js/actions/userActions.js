@@ -1,10 +1,14 @@
-import { USER_STATUS, USER_ACTIONS } from "../constants/constants";
+import { USER_STATUS, ACTIONS } from "../constants/constants";
 
 
+/**
+ * Stores the input parameter as the username in state
+ * @param name
+ * @returns {{type: string, payload: {status: string, userData: {name: *}}}}
+ */
 export function login(name){
-    console.log("Login!");
     return {
-        type: USER_ACTIONS.LOGIN,
+        type: ACTIONS.USER_LOGIN,
         payload: {
             "status": USER_STATUS.EXISTS,
             "userData": {
@@ -14,9 +18,13 @@ export function login(name){
     }
 }
 
+/**
+ * The logout action results in every piece of data fetched from the server getting deleted
+ * @returns {{type: string, payload: {status: string, userData: {}}}}
+ */
 export function logout(){
     return {
-        type: USER_ACTIONS.LOGOUT,
+        type: ACTIONS.USER_LOGOUT,
         payload: {
             "status": USER_STATUS.NO_USER,
             "userData": {}

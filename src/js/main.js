@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 
 //Project imports
 import { Home, Login, UseProcess, UseProcesses, ManageProcesses, EditProcess, MonitorProcess,
-         Services, EditService, MonitorService} from './pages';
+         Services, EditService, MonitorService, MyBilling, MonitorProcesses, MonitorServices} from './pages';
 import App from './components/App';
 //Reducers
 import user from "./reducers/userReducer";
@@ -40,11 +40,14 @@ ReactDOM.render(
                 <Route path="/login" name="login" component={Login}/>
                 <Route path="/my-processes" name="my-processes" component={UseProcesses}/>
                 <Route path="/my-processes/use/:id" name="use-process" component={UseProcess}/>
+                <Route path="/my-billing" name="my-billing" component={MyBilling}/>
                 <Route path="/processes" name="manage-processes" component={ManageProcesses}/>
                 <Route path="/processes/edit/(:id)" name="edit-process" component={EditProcess}/>
+                <Route path="/processes/monitor/" name="monitor-processes" component={MonitorProcesses}/>
                 <Route path="/processes/monitor/:id" name="monitor-process" component={MonitorProcess}/>
                 <Route path="/services" name="services" component={Services}/>
                 <Route path="/services/edit/(:id)" name="edit-service" component={EditService}/>
+                <Route path="/services/monitor/" name="monitor-services" component={MonitorServices}/>
                 <Route path="/services/monitor/:id" name="monitor-service" component={MonitorService}/>
             </Route>
         </Router>

@@ -13,7 +13,8 @@ export default class App extends React.Component {
     render() {
         const { location } = this.props;
         const containerStyle = {
-            marginTop: "0"
+            margin: 0,
+            padding: 0
         };
 
         const colStyle = {
@@ -25,11 +26,7 @@ export default class App extends React.Component {
             <div>
                 <Navigation location={ location } user={this.props.user} />
                 <div className="container-fluid" style={ containerStyle }>
-                    <div className="row">
-                        <div className="col-lg-12" style={colStyle}>
-                            {this.props.children}
-                        </div>
-                    </div>
+                    {this.props.children}
                 </div>
             </div>
         );

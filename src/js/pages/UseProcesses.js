@@ -1,9 +1,11 @@
 import React from 'react';
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, ListGroup, Button } from "react-bootstrap";
+import { Icon } from "react-fontawesome";
 import { connect } from 'react-redux';
 import { loadProcesses } from "./../actions/useProcessesActions";
 import AuthenticatedComponent from "./AuthenticatedComponent";
 import ProcessElement from "../components/elements/processElement";
+import OverviewHeader from "../components/elements/OverviewHeader";
 
 @connect((store) => {
     return {user: store.user, processes: store.processes, useProcesses: store.useProcesses}
@@ -15,7 +17,7 @@ export default class UseProcesses extends AuthenticatedComponent{
     }
 
     componentDidMount(){
-        this.props.dispatch(loadProcesses());
+        //this.props.dispatch(loadProcesses());
     }
 
     load(){
@@ -24,31 +26,18 @@ export default class UseProcesses extends AuthenticatedComponent{
 
     render() {
         super.render();
-        const { useProcesses } = this.props.useProcesses;
-        let info = (<p></p>);
-        switch(useProcesses.status){
-            case "FETCHING": {
-                info = (<p>Fetching...</p>);
-                break;
-            }
-            case "SUCCESS": {
-                info = (<p></p>);
-                break;
-            }
-            case "ERROR": {
-                info = (<p>Error!</p>);
-                break;
-            }
-        }
+        const { useProcesses, processes } = this.props;
+        const processElements = useProcesses.processes.map(id => processes[id])
+                                    .map(p => (<ProcessElement name={p.name}
+                                                       description={p.description}
+                                                       href={"/#/my-processes/use/" + p.id}/>));
+
         return (
-            <div>
-                <Row>
-                    <Col xs={12} className="text-center">
-                        <h1>Use Processes</h1>
-                        <button onClick={this.load.bind(this)}>Lade Prozesse</button>
-                    </Col>
-                </Row>
-                {info}
+            <div className="container">
+                <OverviewHeader title="My Business Processes" status={useProcesses.status} buttonOnClick={this.load.bind(this)}/>
+                <ListGroup>
+                    {processElements}
+                </ListGroup>
             </div>
         );
     }

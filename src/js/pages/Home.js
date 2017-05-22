@@ -28,10 +28,10 @@ export default class Home extends React.Component {
         const imgStyle = {
             "width": "100%",
             "height": "400px",
-            "background-position": "center center",
-            "background-repeat": "no-repeat",
-            "background-image": "url('https://static.pexels.com/photos/40120/pexels-photo-40120.jpeg')",
-            "background-size": "cover",
+            "backgroundPosition": "center center",
+            "backgroundRepeat": "no-repeat",
+            "backgroundImage": "url('https://static.pexels.com/photos/40120/pexels-photo-40120.jpeg')",
+            "backgroundSize": "cover",
         };
         const overlayTextPartStyle = {
             "background": "rgba(0, 0, 0, 0.7)"
@@ -42,8 +42,8 @@ export default class Home extends React.Component {
             "left": 0,
             "position": "absolute",
             "color": "white",
-            "font-size": "4vw",
-            "margin-left": "1vw"
+            "fontSize": "4vw",
+            "marginLeft": "1vw"
         };
 
         const jumbotronStyle = {

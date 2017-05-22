@@ -1,27 +1,25 @@
-const initialState = {
-    processes: [],
-    useProcesses: {}
+import { ACTIONS, FETCH_STATUS } from "../constants/constants";
+
+const useProcesses = {
+    "processes": ["process1"], // TODO: Initial state empty array
+    "status": FETCH_STATUS.FETCH_SUCCESS //TODO Initial state to NOT_FETCHING
 };
 
-export default function reducer(
-    state=initialState, action) {
-    console.log("USE PROCESS REDUCER");
-    console.log(action);
+export default function reducer(state=useProcesses, action) {
     switch (action.type) {
-        case "FETCH_REQUEST": {
-            return {...state, useProcesses: {...state.useProcesses, status: "FETCHING"}}
+        case ACTIONS.USER_LOGOUT: {
+            return Object.assign({}, useProcesses); // Reset the data to the default value
         }
-        case "FETCH_SUCCESS": {
-            processIDs = action.payload.processes.map((p) => p.id);
-
-            return {...state,
-                processes: {...state.processes, ...action.payload.processes},
-                useProcesses: {processes: processIDs, status: "SUCCESS"}};
+        case ACTIONS.USE_PROCESSES_FETCH_REQUEST: {
+            return {...state, "status": FETCH_STATUS.FETCHING};
         }
-        case "FETCH_ERROR": {
-            return {...state, useProcesses: {...state.useProcesses, status: "ERROR"}}
+        case ACTIONS.USE_PROCESSES_FETCH_SUCCESS: {
+            // The actual process data gets saved in the processes reducer, here only the keys are saved
+            return {...state, "processes": Object.keys(action.payload.processes), "status": FETCH_STATUS.FETCH_SUCCESS};
+        }
+        case ACTIONS.USE_PROCESSES_FETCH_ERROR: {
+            return {...state, "status": FETCH_STATUS.FETCH_ERROR};
         }
     }
-
     return state;
 }
