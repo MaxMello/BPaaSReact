@@ -5,6 +5,12 @@
   "author": "Max Wiechmann",
   "main": "webpack.config.js",
   "scripts": {
+    "prebuild": "rm -rf build",
+    "build": "webpack --output-path build",
+    "build:all": "npm run build && npm run docker",
+    "docker:build": "sudo docker build -t docker-hub.informatik.haw-hamburg.de/tti3/bpaas-frontend/image .",
+    "docker:push": "sudo docker push docker-hub.informatik.haw-hamburg.de/tti3/bpaas-frontend/image",
+    "docker": "npm run docker:build && npm run docker:push",
     "start": "webpack-dev-server --content-base src --inline --hot"
   },
   "potential-depedencies": {
