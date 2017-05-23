@@ -19,6 +19,11 @@ export default function reducer(state=processes, action) {
             // TODO Assumes processes to be an object of objects
             return {...state, ...action.payload.processes}; // This syntax should override old process information
         }
+        case ACTIONS.USE_PROCESS_FETCH_SUCCESS: {
+            const obj = {};
+            obj[action.payload.id] = action.payload;
+            return {...state, ...obj};
+        }
     }
     return state;
 }
