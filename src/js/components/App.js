@@ -17,11 +17,6 @@ export default class App extends React.Component {
             padding: 0
         };
 
-        const colStyle = {
-            "padding-left": 0,
-            "padding-right": 0
-        };
-
         return (
             <div>
                 <Navigation location={ location } user={this.props.user} />

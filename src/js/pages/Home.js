@@ -32,33 +32,36 @@ export default class Home extends React.Component {
             "backgroundRepeat": "no-repeat",
             "backgroundImage": "url('https://static.pexels.com/photos/40120/pexels-photo-40120.jpeg')",
             "backgroundSize": "cover",
+            // Flexbox approach for having the last child element pulled to the bottom
+            "display": "flex",
+            "flex-direction": "column",
+            "justify-content": "space-between"
         };
         const overlayTextPartStyle = {
+            "color": "white",
+            "fontSize": "3vw",
             "background": "rgba(0, 0, 0, 0.7)"
         };
 
-        const overlayTextStyle = {
-            "top": 0,
-            "left": 0,
-            "position": "absolute",
-            "color": "white",
-            "fontSize": "4vw",
-            "marginLeft": "1vw"
-        };
-
         const jumbotronStyle = {
+            "padding": 15,
+            "marginTop": 20,
+            "marginBottom": 0,
+            "marginLeft": -15,
+            "marginRight": -15
         };
         const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
+        // The first dif after "banner" is needed for the container to be pulled down
         return (
             <div>
                 <div style={imgStyle} className="banner">
+                    <div/>
+                    <div className="container" style={{"marginBottom": 15}}>
+                        <span style={overlayTextPartStyle}>Business Process Portal.</span><br/>
+                        <span style={overlayTextPartStyle}>The simple platform to connect users and providers.</span>
+                    </div>
                 </div>
-                <div style={overlayTextStyle} className="bannerText">
-                    <span style={overlayTextPartStyle}>Business Process Portal.</span><br/>
-                    <span style={overlayTextPartStyle}>The simple platform to connect users and providers.</span>
-                </div>
-                <div class="">
+                <div className="container">
                     <Row>
                         <Col xs={12}>
                             {this.jumbotron("Optimize your business processes today.", lorem, jumbotronStyle)}

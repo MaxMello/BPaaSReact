@@ -13,8 +13,7 @@ import promise from "redux-promise-middleware";
 import { Provider } from "react-redux";
 
 //Project imports
-import { Home, Login, UseProcess, UseProcesses, ManageProcesses, EditProcess, MonitorProcess,
-         Services, EditService, MonitorService, MyBilling, MonitorProcesses, MonitorServices} from './pages';
+import { Home, Login, UseProcess, UseProcesses, ManageProcesses, EditProcess, Services, EditService, MyBilling} from './pages';
 import App from './components/App';
 //Reducers
 import user from "./reducers/userReducer";
@@ -43,12 +42,8 @@ ReactDOM.render(
                 <Route path="/my-billing" name="my-billing" component={MyBilling}/>
                 <Route path="/processes" name="manage-processes" component={ManageProcesses}/>
                 <Route path="/processes/edit/(:id)" name="edit-process" component={EditProcess}/>
-                <Route path="/processes/monitor/" name="monitor-processes" component={MonitorProcesses}/>
-                <Route path="/processes/monitor/:id" name="monitor-process" component={MonitorProcess}/>
                 <Route path="/services" name="services" component={Services}/>
                 <Route path="/services/edit/(:id)" name="edit-service" component={EditService}/>
-                <Route path="/services/monitor/" name="monitor-services" component={MonitorServices}/>
-                <Route path="/services/monitor/:id" name="monitor-service" component={MonitorService}/>
             </Route>
         </Router>
     </Provider>, app);
