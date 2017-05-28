@@ -3,7 +3,7 @@ export const ACTIONS = {
     USER_LOGOUT: "USER_LOGOUT", // user, processes, useProcesses, manageProcesses, manageServices, services
 
     USE_PROCESSES_FETCH_REQUEST: "USE_PROCESSES_FETCH_REQUEST", // useProcesses
-    USE_PROCESSES_FETCH_SUCCESS: "USE_PROCESSES_FETCH_SUCCESS", // useProcesses, processes, services
+    USE_PROCESSES_FETCH_SUCCESS: "USE_PROCESSES_FETCH_SUCCESS", // useProcesses, processes
     USE_PROCESSES_FETCH_ERROR: "USE_PROCESSES_FETCH_ERROR", // useProcesses
 
     USE_PROCESS_USE_REQUEST: "USE_PROCESS_USE_REQUEST", // useProcesses
@@ -19,11 +19,11 @@ export const ACTIONS = {
     BILLING_ERROR: "BILLING_ERROR", // useProcesses
 
     MANAGE_PROCESSES_FETCH_REQUEST: "MANAGE_PROCESSES_FETCH_REQUEST", // manageProcesses
-    MANAGE_PROCESSES_FETCH_SUCCESS: "MANAGE_PROCESSES_FETCH_SUCCESS", // manageProcesses, processes, services
+    MANAGE_PROCESSES_FETCH_SUCCESS: "MANAGE_PROCESSES_FETCH_SUCCESS", // manageProcesses, processes
     MANAGE_PROCESSES_FETCH_ERROR: "MANAGE_PROCESSES_FETCH_ERROR", // manageProcesses
 
     MANAGE_PROCESS_FETCH_REQUEST: "MANAGE_PROCESSES_FETCH_REQUEST", // manageProcesses
-    MANAGE_PROCESS_FETCH_SUCCESS: "MANAGE_PROCESSES_FETCH_SUCCESS", // manageProcesses, processes, services
+    MANAGE_PROCESS_FETCH_SUCCESS: "MANAGE_PROCESSES_FETCH_SUCCESS", // manageProcesses, processes
     MANAGE_PROCESS_FETCH_ERROR: "MANAGE_PROCESSES_FETCH_ERROR", // manageProcesses
 
     MANAGE_PROCESSES_WRITE_REQUEST: "MANAGE_PROCESSES_WRITE_REQUEST",
@@ -54,3 +54,22 @@ export const FETCH_STATUS = {
     FETCH_SUCCESS: "FETCH_SUCCESS", // Status should be success if data has arrived
     FETCH_ERROR: "FETCH_ERROR"
 };
+
+export function GET_REQUEST(){
+    return {
+        method: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+}
+
+export function PUT_REQUEST(body){
+    return {
+        method: "PUT",
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        },
+        "body": body
+    }
+}

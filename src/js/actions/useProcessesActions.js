@@ -1,5 +1,5 @@
 import { ROUTES } from '../constants/routes';
-import { ACTIONS } from '../constants/constants';
+import { ACTIONS, GET_REQUEST} from '../constants/constants';
 
 /*
  * Actions and functions for process overview page
@@ -19,7 +19,7 @@ export function loadProcesses() {
 }
 
 function fetchProcesses() {
-    return fetch(ROUTES.businessProcesses(), { method: 'GET' })
+    return fetch(ROUTES.businessProcesses(), GET_REQUEST())
             .then( response => Promise.all([response, response.json()]));
 }
 
@@ -60,7 +60,7 @@ export function useProcess(user, id) {
 }
 
 function fetchProcess(user, id) {
-    return fetch(ROUTES.startProcess(user, id), { method: 'GET' }).then( response => Promise.all([response, response.json()]));
+    return fetch(ROUTES.startProcess(user, id), GET_REQUEST()).then( response => Promise.all([response, response.json()]));
 }
 
 function fetchProcessRequest(id){
@@ -101,7 +101,7 @@ export function queryProcessInstance(user, processID, instanceID) {
 }
 
 function fetchInstance(user, processID, instanceID) {
-    return fetch(ROUTES.processInstance(user, processID, instanceID), { method: 'GET' })
+    return fetch(ROUTES.processInstance(user, processID, instanceID), GET_REQUEST())
         .then( response => Promise.all([response, response.json()]));
 }
 
@@ -144,7 +144,7 @@ export function billing(user) {
 }
 
 function getBilling(user) {
-    return fetch(ROUTES.billing(user), { method: 'GET' })
+    return fetch(ROUTES.billing(user), GET_REQUEST())
         .then( response => Promise.all([response, response.json()]));
 }
 

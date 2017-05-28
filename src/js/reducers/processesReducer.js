@@ -16,13 +16,21 @@ export default function reducer(state=processes, action) {
         }
         case ACTIONS.MANAGE_PROCESSES_FETCH_SUCCESS:
         case ACTIONS.USE_PROCESSES_FETCH_SUCCESS: {
-            // TODO Assumes processes to be an object of objects
-            return {...state, ...action.payload.processes}; // This syntax should override old process information
+            const serverResponse = action.payload;
+            const newProcesses = {};
+            serverResponse.forEach(e => newProcesses[e.id] = {
+                "id": e.id,
+                "name": e.name,
+                "description": e.description,
+                "services": e.services.forEach(s => s.id)
+            });
+            return {...state, ...newProcesses};
         }
-        case ACTIONS.USE_PROCESS_FETCH_SUCCESS: {
-            const obj = {};
-            obj[action.payload.id] = action.payload;
-            return {...state, ...obj};
+        case ACTIONS.MANAGE_PROCESS_FETCH_SUCCESS:
+        case ACTIONS.MANAGE_PROCESSES_WRITE_SUCCESS: {
+            const newState = Object.assign({}, state);
+            newState[action.payload.id] = action.payload;
+            return newState;
         }
     }
     return state;

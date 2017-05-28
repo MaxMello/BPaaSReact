@@ -1,8 +1,13 @@
 import { ACTIONS, FETCH_STATUS } from "../constants/constants";
 
 const manageServices = {
-    "services": ["service1", "service2"],
-    "status": FETCH_STATUS.FETCH_SUCCESS
+    "services": [],
+    "status": FETCH_STATUS.NOT_FETCHING,
+    "activeService": {
+        "serviceID": null,
+        "fetchStatus": FETCH_STATUS.NOT_FETCHING,
+        "saveStatus": FETCH_STATUS.NOT_FETCHING
+    }
 };
 
 export default function reducer(state=manageServices, action) {
@@ -16,10 +21,29 @@ export default function reducer(state=manageServices, action) {
         case ACTIONS.MANAGE_SERVICES_FETCH_SUCCESS: {
             // The actual process data gets saved in the processes reducer, here only the keys are saved
             // Old list of processes gets overridden
-            return {...state, "services": Object.keys(action.payload.services), "status": FETCH_STATUS.FETCH_SUCCESS};
+            return {...state, "services": action.payload.map(e => e.id), "status": FETCH_STATUS.FETCH_SUCCESS};
         }
         case ACTIONS.MANAGE_SERVICES_FETCH_ERROR: {
             return {...state, "status": FETCH_STATUS.FETCH_ERROR};
+        }
+        case ACTIONS.MANAGE_SERVICE_FETCH_REQUEST: {
+            return {...state, "activeService": {...state.activeService, fetchStatus: FETCH_STATUS.FETCHING}}
+        }
+        case ACTIONS.MANAGE_SERVICE_FETCH_SUCCESS: {
+            return {...state, "activeService": {...state.activeService, fetchStatus: FETCH_STATUS.FETCH_SUCCESS,
+                                                serviceID: action.payload.id}}
+        }
+        case ACTIONS.MANAGE_SERVICE_FETCH_ERROR: {
+            return {...state, "activeService": {...state.activeService, fetchStatus: FETCH_STATUS.FETCH_ERROR}}
+        }
+        case ACTIONS.MANAGE_SERVICES_WRITE_REQUEST: {
+            return {...state, "activeService": {...state.activeService, saveStatus: FETCH_STATUS.FETCHING}}
+        }
+        case ACTIONS.MANAGE_SERVICES_WRITE_SUCCESS:{
+            return {...state, "activeService": {...state.activeService, saveStatus: FETCH_STATUS.FETCH_SUCCESS}}
+        }
+        case ACTIONS.MANAGE_SERVICES_WRITE_ERROR: {
+            return {...state, "activeService": {...state.activeService, fetchStatus: FETCH_STATUS.FETCH_ERROR}}
         }
     }
     return state;

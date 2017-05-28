@@ -20,11 +20,22 @@ export default function reducer(state=services, action) {
         case ACTIONS.USER_LOGOUT: {
             return Object.assign({}, services); // Reset the data to the default value
         }
-        case ACTIONS.MANAGE_PROCESSES_FETCH_SUCCESS:
-        case ACTIONS.USE_PROCESSES_FETCH_SUCCESS:
         case ACTIONS.MANAGE_SERVICES_FETCH_SUCCESS: {
-            // TODO Assumes services to be an object of objects
-            return {...state, ...action.payload.services}; // This syntax should override old process information
+            const serverResponse = action.payload;
+            const newServices = {};
+            serverResponse.forEach(e => newServices[e.id] = {
+                "id": e.id,
+                "name": e.name,
+                "description": e.description,
+                "baseURL": e.baseURL
+            });
+            return {...state, ...newServices};
+        }
+        case ACTIONS.MANAGE_SERVICES_WRITE_SUCCESS:
+        case ACTIONS.MANAGE_SERVICE_FETCH_SUCCESS: {
+            const newState = Object.assign({}, state);
+            newState[action.payload.id] = action.payload;
+            return newState;
         }
     }
     return state;

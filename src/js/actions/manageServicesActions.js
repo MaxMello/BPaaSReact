@@ -1,5 +1,5 @@
 import { ROUTES } from '../constants/routes';
-import { ACTIONS } from '../constants/constants';
+import { ACTIONS, GET_REQUEST, PUT_REQUEST } from '../constants/constants';
 
 /*
  * Actions and functions for service overview page
@@ -19,7 +19,7 @@ export function loadServices() {
 }
 
 function fetchServices() {
-    return fetch(ROUTES.services(), { method: 'GET' })
+    return fetch(ROUTES.services(), GET_REQUEST())
         .then( response => Promise.all([response, response.json()]));
 }
 
@@ -48,39 +48,17 @@ function fetchServicesError() {
 
 export function loadService(id) {
     return (dispatch) => {
-        dispatch(fetchServiceRequest());
-        return fetchService(id).then(([response, json]) => {
+        dispatch(() => { return { type: ACTIONS.MANAGE_SERVICE_FETCH_REQUEST } });
+        return fetch(ROUTES.service(id), GET_REQUEST())
+                .then(response => Promise.all([response, response.json()]))
+                .then(([response, payload]) => {
             if(response.status === 200){
-                dispatch(fetchServiceSuccess(json))
+                dispatch(() => {return { type: ACTIONS.MANAGE_SERVICE_FETCH_SUCCESS, payload}})
             } else{
-                dispatch(fetchServiceError())
+                dispatch(() => {return {type: ACTIONS.MANAGE_SERVICE_FETCH_ERROR}})
             }
-        }).catch( error => dispatch(fetchServiceError()));
-    }
-}
-
-function fetchService(id) {
-    return fetch(ROUTES.service(id), { method: 'GET' })
-        .then( response => Promise.all([response, response.json()]));
-}
-
-function fetchServiceRequest(){
-    return {
-        type: ACTIONS.MANAGE_SERVICE_FETCH_REQUEST
-    }
-}
-
-function fetchServiceSuccess(payload) {
-    return {
-        type: ACTIONS.MANAGE_SERVICE_FETCH_SUCCESS,
-        payload
-    }
-}
-
-function fetchServiceError() {
-    return {
-        type: ACTIONS.MANAGE_SERVICE_FETCH_ERROR
-    }
+        }).catch( error => dispatch(() => { return { type: ACTIONS.MANAGE_SERVICE_FETCH_ERROR } }));
+    };
 }
 
 // Write service
@@ -99,7 +77,7 @@ export function writeService(service) {
 }
 
 function postService(service) {
-    return fetch(ROUTES.services(), { method: 'POST', body: service })
+    return fetch(ROUTES.services(), PUT_REQUEST(service))
         .then( response => Promise.all([response, response.json()]));
 }
 

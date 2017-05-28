@@ -1,4 +1,5 @@
-const baseURL = "https://sow-stf.ful.informatik.haw-hamburg.de/api/";
+//const baseURL = "https://sow-stf.ful.informatik.haw-hamburg.de/api/";
+const baseURL = "http://tti3.hawhh.de/api/";
 const version = "v1/";
 
 export const ROUTES = {
@@ -9,10 +10,10 @@ export const ROUTES = {
         return baseURL + version + "bp/" + id;
     },
     services: function() {
-        return baseURL + version + "services";
+        return baseURL + version + "service";
     },
     service: function(id) {
-        return baseURL + version + "services/" + id;
+        return baseURL + version + "service/" + id;
     },
     billing: function(user){
         return baseURL + version + "user/" + user + "/monitor";
@@ -24,5 +25,3 @@ export const ROUTES = {
         return baseURL + version + "user/" + user + "/bp/" + processID + "/instances/" + instanceID;
     }
 };
-
-// TODO Which route is for writing? POST /bp und POST /services ?

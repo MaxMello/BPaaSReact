@@ -34,7 +34,7 @@ export default class Home extends React.Component {
             "backgroundSize": "cover",
             // Flexbox approach for having the last child element pulled to the bottom
             "display": "flex",
-            "flex-direction": "column",
+            "flexDirection": "column",
             "justify-content": "space-between"
         };
         const overlayTextPartStyle = {

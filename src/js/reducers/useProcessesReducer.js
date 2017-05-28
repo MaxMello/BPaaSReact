@@ -1,12 +1,16 @@
 import { ACTIONS, FETCH_STATUS } from "../constants/constants";
 
 const useProcesses = {
-    "processes": ["process1"], // TODO: Initial state empty array
-    "status": FETCH_STATUS.FETCH_SUCCESS, //TODO Initial state to NOT_FETCHING
+    "processes": [],
+    "status": FETCH_STATUS.NOT_FETCHING,
     "activeProcess": {
         "status": FETCH_STATUS.NOT_FETCHING,
         "processID": null,
         "instance": null
+    },
+    "billing": {
+        "status": FETCH_STATUS.NOT_FETCHING,
+        "priceToPay": 0.00
     }
 };
 
@@ -20,7 +24,7 @@ export default function reducer(state=useProcesses, action) {
         }
         case ACTIONS.USE_PROCESSES_FETCH_SUCCESS: {
             // The actual process data gets saved in the processes reducer, here only the keys are saved
-            return {...state, "processes": Object.keys(action.payload.processes), "status": FETCH_STATUS.FETCH_SUCCESS};
+            return {...state, "processes": action.payload.map(e => e.id), "status": FETCH_STATUS.FETCH_SUCCESS};
         }
         case ACTIONS.USE_PROCESSES_FETCH_ERROR: {
             return {...state, "status": FETCH_STATUS.FETCH_ERROR};
@@ -30,9 +34,9 @@ export default function reducer(state=useProcesses, action) {
                                                 "processID": action.payload.id}};
         }
         case ACTIONS.USE_PROCESS_USE_SUCCESS: {
-            // TODO Correct payload access
             return {...state, "activeProcess": {...state.activeProcess, "status": FETCH_STATUS.FETCH_SUCCESS,
                                                  "instance": {
+                                                    "status": FETCH_STATUS.NOT_FETCHING,
                                                     "instanceID": action.payload.instanceID
                                                  }}};
         }
@@ -47,14 +51,24 @@ export default function reducer(state=useProcesses, action) {
         case ACTIONS.USE_PROCESS_INSTANCE_SUCCESS: {
             //TODO Correct payload access for url
             return {...state, "activeProcess": {...state.activeProcess, "instance": {...state.activeProcess.instance,
-                "status": FETCH_STATUS.FETCHING,
-                "instanceURL": action.payload.instanceURL
+                "status": FETCH_STATUS.FETCH_SUCCESS,
+                "gui": action.payload.gui
             }}};
         }
         case ACTIONS.USE_PROCESS_INSTANCE_ERROR: {
             return {...state, "activeProcess": {...state.activeProcess, "instance": {...state.activeProcess.instance,
                 "status": FETCH_STATUS.FETCH_ERROR
             }}};
+        }
+        case ACTIONS.BILLING_REQUEST: {
+            return {...state, "billing": {...state.billing, "status": FETCH_STATUS.FETCHING}}
+        }
+        case ACTIONS.BILLING_SUCCESS: {
+            return {...state, "billing": {...state.billing, "status": FETCH_STATUS.FETCH_SUCCESS,
+                "priceToPay": action.payload.priceToPay}}
+        }
+        case ACTIONS.BILLING_ERROR: {
+            return {...state, "billing": {...state.billing, "status": FETCH_STATUS.FETCH_ERROR}}
         }
     }
     return state;

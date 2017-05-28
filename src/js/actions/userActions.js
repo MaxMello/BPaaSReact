@@ -24,10 +24,6 @@ export function login(name){
  */
 export function logout(){
     return {
-        type: ACTIONS.USER_LOGOUT,
-        payload: {
-            "status": USER_STATUS.NO_USER,
-            "userData": {}
-        }
+        type: ACTIONS.USER_LOGOUT
     }
 }

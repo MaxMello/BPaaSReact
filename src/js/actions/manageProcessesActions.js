@@ -1,5 +1,5 @@
 import { ROUTES } from '../constants/routes'
-import { ACTIONS } from '../constants/constants';
+import { ACTIONS, GET_REQUEST, PUT_REQUEST } from '../constants/constants';
 
 /*
  * Actions and functions for process overview page
@@ -19,7 +19,7 @@ export function loadProcesses() {
 }
 
 function fetchProcesses() {
-    return fetch(ROUTES.businessProcesses(), { method: 'GET' })
+    return fetch(ROUTES.businessProcesses(), GET_REQUEST())
         .then( response => Promise.all([response, response.json()]));
 }
 
@@ -60,7 +60,7 @@ export function loadProcess(id) {
 }
 
 function fetchProcess(id) {
-    return fetch(ROUTES.businessProcess(id), { method: 'GET' })
+    return fetch(ROUTES.businessProcess(id), GET_REQUEST())
         .then( response => Promise.all([response, response.json()]));
 }
 
@@ -99,7 +99,7 @@ export function writeProcess(process) {
 }
 
 function postProcess(process) {
-    return fetch(ROUTES.businessProcesses(), { method: 'POST', body: process })
+    return fetch(ROUTES.businessProcesses(), PUT_REQUEST(process))
         .then( response => Promise.all([response, response.json()]));
 }
 
