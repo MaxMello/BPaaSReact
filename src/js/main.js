@@ -8,6 +8,9 @@ import { applyMiddleware, createStore, combineReducers } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
+import "babel-polyfill";
+import "babel-core/register";
+import createSagaMiddleware from 'redux-saga';
 
 //Imports for connecting React and Redux
 import { Provider } from "react-redux";
@@ -15,6 +18,7 @@ import { Provider } from "react-redux";
 //Project imports
 import { Home, Login, UseProcess, UseProcesses, ManageProcesses, EditProcess, Services, EditService, MyBilling} from './pages';
 import App from './components/App';
+import rootSaga from "./actions/polling";
 //Reducers
 import user from "./reducers/userReducer";
 import useProcesses from "./reducers/useProcessesReducer";
@@ -23,13 +27,12 @@ import services from "./reducers/servicesReducer";
 import manageProcesses from "./reducers/manageProcessesReducer";
 import manageServices from "./reducers/manageServicesReducer";
 
-
+const sagaMiddleware = createSagaMiddleware();
 const app = document.getElementById('app');
 const store = createStore(
     combineReducers({user, processes, useProcesses, manageProcesses, services, manageServices}),
-    applyMiddleware(promise(), thunk, logger()));
-console.log("STORE");
-console.log(store);
+    applyMiddleware(promise(), thunk, logger(), sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>

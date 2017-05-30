@@ -8,7 +8,7 @@ const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin")["default
 
 const config = {
     context: srcPath,
-    entry: './js/main.js',
+    entry: ['babel-polyfill', './js/main.js'],
 
     output: {
         path: srcPath,
