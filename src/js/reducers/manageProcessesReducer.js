@@ -4,9 +4,14 @@ const manageProcesses = {
     "processes": [],
     "status": FETCH_STATUS.NOT_FETCHING,
     "activeProcess": {
-        "processID": null,
         "fetchStatus": FETCH_STATUS.NOT_FETCHING,
-        "saveStatus": FETCH_STATUS.NOT_FETCHING
+        "saveStatus": FETCH_STATUS.NOT_FETCHING,
+        "processData": {
+            "id": "",
+            "name": "",
+            "description": "",
+            "services": []
+        }
     }
 };
 
@@ -42,6 +47,9 @@ export default function reducer(state=manageProcesses, action) {
         }
         case ACTIONS.MANAGE_PROCESSES_WRITE_ERROR: {
             return {...state, "activeProcess": {...state.activeProcess, "saveStatus": FETCH_STATUS.FETCH_ERROR}}
+        }
+        case ACTIONS.MANAGE_PROCESSES_CHANGE_PROCESS: {
+            return {...state, "activeProcess": {...state.activeProcess, "processData": action.payload}}
         }
     }
     return state;

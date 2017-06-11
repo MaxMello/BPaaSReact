@@ -85,6 +85,13 @@ function fetchProcessError() {
 
 // Write process
 
+export function changeProcess(processData) {
+    return {
+        type: ACTIONS.MANAGE_PROCESSES_CHANGE_PROCESS,
+        payload: processData
+    }
+}
+
 export function writeProcess(process) {
     return (dispatch) => {
         dispatch(fetchProcessRequest());

@@ -1,27 +1,41 @@
-//const baseURL = "https://sow-stf.ful.informatik.haw-hamburg.de/api/";
-const baseURL = "http://tti3.hawhh.de/api/";
+const debug = process.env.NODE_ENV !== "production";
+const baseURL = debug ? "http://tti3.hawhh.de/api/" : "/api/";
 const version = "v1/";
 
 export const ROUTES = {
     businessProcesses: function() {
-        return baseURL + version + "bp";
+        const url = baseURL + version + "bp";
+        console.log("Calling: " + url);
+        return url;
     },
     businessProcess: function(id) {
-        return baseURL + version + "bp/" + id;
+        const url = baseURL + version + "bp/" + id;
+        console.log("Calling: " + url);
+        return url;
     },
     services: function() {
-        return baseURL + version + "service";
+        const url = baseURL + version + "service";
+        console.log("Calling: " + url);
+        return url;
     },
     service: function(id) {
-        return baseURL + version + "service/" + id;
+        const url = baseURL + version + "service/" + id;
+        console.log("Calling: " + url);
+        return url;
     },
     billing: function(user){
-        return baseURL + version + "user/" + user + "/monitor";
+        const url = baseURL + version + "user/" + user + "/monitor";
+        console.log("Calling: " + url);
+        return url;
     },
     startProcess: function(user, processID){
-        return baseURL + version + "user/" + user + "/bp/" + processID + "/start";
+        const url = baseURL + version + "user/" + user + "/bp/" + processID + "/start";
+        console.log("Calling: " + url);
+        return url;
     },
     processInstance: function(user, processID, instanceID){
-        return baseURL + version + "user/" + user + "/bp/" + processID + "/instances/" + instanceID;
+        const url = baseURL + version + "user/" + user + "/bp/" + processID + "/instances/" + instanceID;
+        console.log("Calling: " + url);
+        return url;
     }
 };
