@@ -1,18 +1,6 @@
 import { ACTIONS } from "../constants/constants";
 
 const services = {
-    "service1": {
-        "id": "service1",
-        "name": "Service 1",
-        "description": "...",
-        "baseURL": "https://google.com"
-    },
-    "service2": {
-        "id": "service2",
-        "name": "Service 2",
-        "description": ".....",
-        "baseURL": "https://google.de"
-    }
 };
 
 export default function reducer(state=services, action) {

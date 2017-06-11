@@ -1,12 +1,6 @@
 import { ACTIONS } from "../constants/constants";
 
 const processes = {
-    "process1": {
-        "id": "process1",
-        "name": "Prozess 1",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "services": ["service1", "service2"]
-    }
 };
 
 export default function reducer(state=processes, action) {
@@ -18,11 +12,13 @@ export default function reducer(state=processes, action) {
         case ACTIONS.USE_PROCESSES_FETCH_SUCCESS: {
             const serverResponse = action.payload;
             const newProcesses = {};
+            console.log("Server response");
+            console.log(serverResponse);
             serverResponse.forEach(e => newProcesses[e.id] = {
                 "id": e.id,
                 "name": e.name,
                 "description": e.description,
-                "services": e.services.forEach(s => s.id)
+                "services": e.services.map(s => s.id)
             });
             return {...state, ...newProcesses};
         }

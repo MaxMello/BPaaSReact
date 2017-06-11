@@ -63,6 +63,13 @@ export function loadService(id) {
 
 // Write service
 
+export function changeService(serviceData) {
+    return {
+        type: ACTIONS.MANAGE_SERVICES_CHANGE_SERVICE,
+        payload: serviceData
+    }
+}
+
 export function writeService(service) {
     return (dispatch) => {
         dispatch(writeServiceRequest());
@@ -77,7 +84,7 @@ export function writeService(service) {
 }
 
 function postService(service) {
-    return fetch(ROUTES.services(), POST_REQUEST(service))
+    return fetch(ROUTES.service(service.id), POST_REQUEST(service))
         .then( response => Promise.all([response, response.json()]));
 }
 

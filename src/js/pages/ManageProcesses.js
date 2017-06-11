@@ -18,7 +18,7 @@ export default class ManageProcesses extends AuthenticatedComponent {
     }
 
     componentDidMount(){
-        //this.props.dispatch(loadProcesses());
+        this.props.dispatch(loadProcesses());
     }
 
     load(){

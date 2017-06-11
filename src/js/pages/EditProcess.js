@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import AuthenticatedComponent from "./AuthenticatedComponent";
 import { Row, Col, FormControl, FormGroup } from "react-bootstrap";
 import { changeProcess, loadProcess, writeProcess } from "../actions/manageProcessesActions";
-import { loadServices, loadService } from "../actions/manageServicesActions";
+import { loadServices } from "../actions/manageServicesActions";
 import OverviewHeader from "../components/elements/OverviewHeader";
 
 @connect((store) => {
@@ -13,12 +13,6 @@ export default class EditProcess extends AuthenticatedComponent {
 
     constructor(props){
         super(props);
-        const processID = this.props.location.pathname.substr(this.props.location.pathname.lastIndexOf('/') + 1);
-        if(processID.length > 0){
-            this.processID = processID;
-        } else {
-            this.processID = null;
-        }
         this.handleIDChange = this.handleIDChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -26,7 +20,8 @@ export default class EditProcess extends AuthenticatedComponent {
         this.serviceSelect = this.serviceSelect.bind(this);
         this.save = this.save.bind(this);
         this.selectElements = [];
-        this.newServiceIndex = 0;
+        this.processID = null;
+        this.resetted = false;
     }
 
     componentDidMount(){
@@ -35,27 +30,32 @@ export default class EditProcess extends AuthenticatedComponent {
     }
 
     componentWillReceiveProps(nextProps){
-        const { processes, services, manageProcesses } = nextProps;
+        const processID = this.props.location.pathname.substr(this.props.location.pathname.lastIndexOf('/') + 1);
+        if(processID.length > 0){
+            this.processID = processID;
+        } else {
+            this.processID = null;
+        }
+        const { processes, manageProcesses } = nextProps;
         if(this.processID !== null){
-            if(!this.processID in processes){
+            if(!this.processID in processes) {
                 console.log("EditProcess::componentWillReceiveProps *** About to load process for id " + this.processID);
                 this.props.dispatch(loadProcess(this.processID));
-            } else {
-                const serviceIDs = processes[this.processID]["services"];
-                for(const id of serviceIDs){
-                    if(!id in services){
-                        console.log("EditProcess::componentWillReceiveProps *** About to load service for id " + this.id);
-                        this.props.dispatch(loadService(id));
-                        return;
-                    }
-                }
-                // Because of the return, we know here that every service exists
-                if(manageProcesses.activeProcess.processData.id === "") {
-                    // If the ID is not set, this means we need to set the process data once
-                    console.log("EditProcess::componentWillReceiveProps *** Trigger one time change process for process " + this.processID);
-                    this.props.dispatch(changeProcess({...processes[this.processID]}));
-                }
+            } else if(manageProcesses.activeProcess.processData.id === "" ||
+                      this.processID !== manageProcesses.activeProcess.processData.id) {
+                // If the ID is not set, this means we need to set the process data once
+                this.props.dispatch(changeProcess(
+                    {...processes[this.processID], services: processes[this.processID].services.map(e => {return {"id": e}}) }
+                    ));
             }
+        } else if((!this.resetted) && manageProcesses.activeProcess.processData.id !== ""){ // Only reset if not reset already
+            this.resetted = true;
+            this.props.dispatch(changeProcess({
+                "id": "",
+                "name": "",
+                "description": "",
+                "services": []
+            }));
         }
     }
 
@@ -81,47 +81,39 @@ export default class EditProcess extends AuthenticatedComponent {
     }
 
     handleServicesChange(event){
-        console.log("*** handle Service Change: START ***");
-        console.log(this.selectElements);
         const services = Object.assign([], this.props.manageProcesses.activeProcess.processData.services);
-        console.log(event.target);
         const currentServiceIndex = event.target.id.substr(event.target.id.lastIndexOf('e') + 1);
-        console.log("Current service index");
-        console.log(currentServiceIndex);
         if(event.target.value === "-1"){
             services.splice(currentServiceIndex, 1);
         } else {
-            services[currentServiceIndex] = event.target.value;
+            services[currentServiceIndex] = {"id": event.target.value};
         }
         this.props.dispatch(changeProcess({
             ...this.props.manageProcesses.activeProcess.processData,
             "services": services
         }));
-        this.newServiceIndex = services.length;
-        console.log("*** handle Service Change: END ***");
     }
 
     serviceSelect(idx, activeID){
         const { services } = this.props;
-        const options = Object.keys(services).map( (key, index) => {
-            return (<option value={key} key={"select" + idx + "_option_" + key}>
+        const options = Object.keys(services).map( key => {
+            return (<option value={key} selected={key===activeID ? "selected": ""} key={"select" + idx + "_option_" + key}>
                 {services[key].name}
             </option>)
         });
         const noOption = (
-            <option value={-1}>Select...</option>
+            <option value={-1} selected={-1 == activeID ? "selected": ""}>Select...</option>
         );
         return (
             <div>
-                <Col xs={12} sm={4}>
+                <Col xs={12} sm={4} lg={2}>
                     <h5>{idx + 1}. Service</h5>
                 </Col>
-                <Col xs={12} sm={8}>
+                <Col xs={12} sm={8} lg={10}>
                     <FormGroup controlId={"service" + idx}>
                         <FormControl inputRef={el => this.selectElements[idx] = el}
                                      componentClass="select"
                                      placeholder="Choose a service..."
-                                     value={activeID}
                                      onChange={this.handleServicesChange}>
                             {noOption}
                             {options}
@@ -133,7 +125,6 @@ export default class EditProcess extends AuthenticatedComponent {
     }
 
     save(){
-        console.log("SAVE!!!");
         this.props.dispatch(writeProcess(this.props.manageProcesses.activeProcess.processData));
     }
 
@@ -147,10 +138,10 @@ export default class EditProcess extends AuthenticatedComponent {
                 <OverviewHeader title={title} status={ this.props.manageProcesses.activeProcess.saveStatus }
                                 buttonOnClick={this.save} texts={{"text1": "Save", "text2": "Saving..."}}/>
                 <Row>
-                    <Col xs={12} sm={4}>
+                    <Col xs={12} sm={4} lg={2}>
                         <h5>ID</h5>
                     </Col>
-                    <Col xs={12} sm={8}>
+                    <Col xs={12} sm={8} lg={10}>
                         <FormGroup controlId="id">
                             <FormControl type="text"
                                          value={processData.id}
@@ -161,10 +152,10 @@ export default class EditProcess extends AuthenticatedComponent {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12} sm={4}>
+                    <Col xs={12} sm={4} lg={2}>
                         <h5>Name</h5>
                     </Col>
-                    <Col xs={12} sm={8}>
+                    <Col xs={12} sm={8} lg={10}>
                         <FormGroup controlId="name">
                             <FormControl type="text"
                                          value={processData.name}
@@ -175,10 +166,10 @@ export default class EditProcess extends AuthenticatedComponent {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12} sm={4}>
+                    <Col xs={12} sm={4} lg={2}>
                         <h5>Description</h5>
                     </Col>
-                    <Col xs={12} sm={8}>
+                    <Col xs={12} sm={8} lg={10}>
                         <FormGroup controlId="description">
                             <FormControl componentClass="textarea"
                                          value={processData.description}
@@ -191,8 +182,8 @@ export default class EditProcess extends AuthenticatedComponent {
                     <Col xs={12}>
                         <h4>Services</h4>
                     </Col>
-                    { processData.services.map((s, idx) => this.serviceSelect(idx, s)) }
-                    { this.serviceSelect(this.newServiceIndex, -1) }
+                    { processData.services.map((s, idx) => this.serviceSelect(idx, s.id)) }
+                    { this.serviceSelect(processData.services.length, -1) }
                 </Row>
             </div>
         );

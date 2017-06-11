@@ -17,7 +17,7 @@ export default class UseProcesses extends AuthenticatedComponent{
     }
 
     componentDidMount(){
-        //this.props.dispatch(loadProcesses());
+        this.props.dispatch(loadProcesses());
     }
 
     load(){
@@ -29,6 +29,7 @@ export default class UseProcesses extends AuthenticatedComponent{
         const { useProcesses, processes } = this.props;
         const processElements = useProcesses.processes.map(id => processes[id])
                                     .map(p => (<ProcessElement name={p.name}
+                                                               key={"processElement_"+p.id}
                                                        description={p.description}
                                                        href={"/#/my-processes/use/" + p.id}/>));
 

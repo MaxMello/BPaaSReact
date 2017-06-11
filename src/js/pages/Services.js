@@ -18,7 +18,7 @@ export default class Services extends AuthenticatedComponent {
     }
 
     componentDidMount(){
-        //this.props.dispatch(loadServices());
+        this.props.dispatch(loadServices());
     }
 
     load(){

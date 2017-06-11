@@ -4,9 +4,14 @@ const manageServices = {
     "services": [],
     "status": FETCH_STATUS.NOT_FETCHING,
     "activeService": {
-        "serviceID": null,
         "fetchStatus": FETCH_STATUS.NOT_FETCHING,
-        "saveStatus": FETCH_STATUS.NOT_FETCHING
+        "saveStatus": FETCH_STATUS.NOT_FETCHING,
+        "serviceData": {
+            "id": "",
+            "name": "",
+            "description": "",
+            "baseURL": ""
+        }
     }
 };
 
@@ -44,6 +49,9 @@ export default function reducer(state=manageServices, action) {
         }
         case ACTIONS.MANAGE_SERVICES_WRITE_ERROR: {
             return {...state, "activeService": {...state.activeService, fetchStatus: FETCH_STATUS.FETCH_ERROR}}
+        }
+        case ACTIONS.MANAGE_SERVICES_CHANGE_SERVICE: {
+            return {...state, "activeService": {...state.activeService, serviceData: action.payload}}
         }
     }
     return state;
