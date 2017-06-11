@@ -10,7 +10,6 @@ class Navigation extends React.Component {
     }
 
     render() {
-        console.log(this);
         const { location, user } = this.props;
         const loginText = user.status === USER_STATUS.EXISTS ? user.userData.name : "Login";
         const homeClass = location.pathname === "/" ? "active": "";

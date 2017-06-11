@@ -1,5 +1,5 @@
 import { ROUTES } from '../constants/routes';
-import { ACTIONS, GET_REQUEST, PUT_REQUEST } from '../constants/constants';
+import { ACTIONS, GET_REQUEST, POST_REQUEST } from '../constants/constants';
 
 /*
  * Actions and functions for service overview page
@@ -77,7 +77,7 @@ export function writeService(service) {
 }
 
 function postService(service) {
-    return fetch(ROUTES.services(), PUT_REQUEST(service))
+    return fetch(ROUTES.services(), POST_REQUEST(service))
         .then( response => Promise.all([response, response.json()]));
 }
 

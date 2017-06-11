@@ -1,5 +1,5 @@
 import { ROUTES } from '../constants/routes'
-import { ACTIONS, GET_REQUEST, PUT_REQUEST } from '../constants/constants';
+import { ACTIONS, GET_REQUEST, POST_REQUEST } from '../constants/constants';
 
 /*
  * Actions and functions for process overview page
@@ -93,20 +93,28 @@ export function changeProcess(processData) {
 }
 
 export function writeProcess(process) {
+    console.log("*** WRITE PROCESS START ***");
+    console.log(process);
     return (dispatch) => {
-        dispatch(fetchProcessRequest());
+        dispatch(writeProcessRequest());
         return postProcess(process).then(([response, json]) => {
             if(response.status === 200){
-                dispatch(fetchProcessSuccess(json))
+                dispatch(writeProcessSuccess(json))
             } else{
-                dispatch(fetchProcessError())
+                console.log("Status is not 200: ");
+                console.log(response);
+                dispatch(writeProcessError())
             }
-        }).catch( error => dispatch(fetchProcessError()));
-    }
+        }).catch( error => {
+            console.log("Error...");
+            console.log(error);
+            dispatch(writeProcessError())
+        });
+    };
 }
 
 function postProcess(process) {
-    return fetch(ROUTES.businessProcesses(), PUT_REQUEST(process))
+    return fetch(ROUTES.businessProcess(process.id), POST_REQUEST(process))
         .then( response => Promise.all([response, response.json()]));
 }
 

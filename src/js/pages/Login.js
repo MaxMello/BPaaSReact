@@ -23,7 +23,6 @@ export default class Login extends React.Component {
     }
 
     loginUser(){
-        console.log("Login...");
         if(this.state.name !== null && this.state.name.length > 0){
             this.props.dispatch(login(this.state.name));
         }
@@ -36,7 +35,6 @@ export default class Login extends React.Component {
     }
 
     render() {
-        console.log(this);
         const isRedirect = this.props.location.query.redirect === "true";
         const { user } = this.props;
         const userExists = user.status === USER_STATUS.EXISTS && user.userData !== null;
@@ -89,6 +87,9 @@ export default class Login extends React.Component {
                 <Row>
                     <Col xs={12} className="text-center">
                         <h1>{title}</h1>
+                    </Col>
+                    <Col xs={12} className="text-center">
+                        <h4>Register now to take advantage of BPaaS App and be part of the community.</h4>
                     </Col>
                 </Row>
                 <Row className="loginGroup">

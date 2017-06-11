@@ -66,12 +66,13 @@ export function GET_REQUEST(){
     }
 }
 
-export function PUT_REQUEST(body){
+export function POST_REQUEST(body){
     return {
-        method: "PUT",
+        method: "POST",
         headers: {
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
         },
-        "body": body
+        "body": JSON.stringify(body)
     }
 }
