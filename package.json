@@ -10,7 +10,7 @@
   "scripts": {
     "prebuild": "rm -rf build",
     "build": "webpack --output-path build",
-    "build:all": "npm run build && npm run docker",
+    "build:all": "npm run build --production && npm run docker",
     "docker:build": "sudo docker build -t $npm_package_config_docker_tag .",
     "docker:push": "sudo docker push $npm_package_config_docker_tag",
     "docker": "npm run docker:build && npm run docker:push",
