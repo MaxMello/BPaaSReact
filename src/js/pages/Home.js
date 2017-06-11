@@ -63,17 +63,17 @@ export default class Home extends React.Component {
                 <div className="container">
                     <Row>
                         <Col xs={12}>
-                            {this.jumbotron("Optimize your business processes today. Use a number of business processes on this platform and take advantage of the cloud. All your business processes on one platform, so you keep the overview. You can see in which service each process is located. You can process the individual steps of the business process conveniently on the platform. Start today and register now to take advantage of the platform's benefits.", jumbotronStyle)}
+                            {this.jumbotron("Optimize your business processes today.", "Use a number of business processes on this platform and take advantage of the cloud. All your business processes on one platform, so you keep the overview. You can see in which service each process is located. You can process the individual steps of the business process conveniently on the platform. Start today and register now to take advantage of the platform's benefits.", jumbotronStyle)}
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={12}>
-                            {this.jumbotron("Offer business processes on our platform. Create business processes and offer them on the platform. For the creation, you have the choice of many services provided by the service providers. The advantage of the platform is that many users use your business processes for a fee. This means for you more profit by many customers.", jumbotronStyle)}
+                            {this.jumbotron("Offer business processes on our platform.", "Create business processes and offer them on the platform. For the creation, you have the choice of many services provided by the service providers. The advantage of the platform is that many users use your business processes for a fee. This means for you more profit by many customers.", jumbotronStyle)}
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={12}>
-                            {this.jumbotron("Create services as part of our community. Offer on our platform services for business processes. These use many business process providers in their business processes. For the use of your services you get money from the users. The large number of users is an advantage of the cloud solution for business processe (BPaaS). This means more profit for you through the high user numbers.", jumbotronStyle)}
+                            {this.jumbotron("Create services as part of our community.", "Offer on our platform services for business processes. These use many business process providers in their business processes. For the use of your services you get money from the users. The large number of users is an advantage of the cloud solution for business processe (BPaaS). This means more profit for you through the high user numbers.", jumbotronStyle)}
                         </Col>
                     </Row>
                 </div>
