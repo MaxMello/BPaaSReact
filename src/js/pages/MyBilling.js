@@ -1,19 +1,25 @@
 import React from 'react'
-import '../../style/bootstrap/less/bootstrap.less'
-import { Icon } from "react-fontawesome";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { billing } from "../actions/useProcessesActions"
 import AuthenticatedComponent from "./AuthenticatedComponent";
+import OverviewHeader from "../components/elements/OverviewHeader";
+
 
 @connect((store) => {
     return {user: store.user, processes: store.processes, useProcesses: store.useProcesses}
 })
 export default class MyBilling extends AuthenticatedComponent {
     componentDidMount(){
+        this.load = this.load.bind(this);
+        this.load();
+    }
+
+    load(){
         const userName = this.props.user.userData.name;
         this.props.dispatch(billing(userName));
     }
+
     render() {
         super.render();
 
@@ -21,10 +27,11 @@ export default class MyBilling extends AuthenticatedComponent {
         const price = useProcesses.billing.priceToPay;
 
         return (
-            <div>
+            <div className="container">
+                <OverviewHeader title="My Billing" status={useProcesses.billing.status} buttonOnClick={this.load}/>
                 <Row>
-                    <Col xs={12} className="text-center">
-                        <h1>My Billing: { price }$</h1>
+                    <Col xs={12}>
+                        <h1>Total: { price }$</h1>
                     </Col>
                 </Row>
 

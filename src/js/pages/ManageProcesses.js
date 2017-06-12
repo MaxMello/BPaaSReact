@@ -28,7 +28,7 @@ export default class ManageProcesses extends AuthenticatedComponent {
     render() {
         const { manageProcesses, processes } = this.props;
         const processElements = manageProcesses.processes.map(id => processes[id])
-                                .map(p => (<ProcessElement name={p.name}
+                                .map(p => (<ProcessElement name={p.name} key={"element_"+p.id}
                                        description={p.description}
                                        href={"/#/processes/edit/" + p.id}/>));
         super.render();

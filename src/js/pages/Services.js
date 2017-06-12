@@ -29,7 +29,7 @@ export default class Services extends AuthenticatedComponent {
         super.render();
         const { manageServices, services } = this.props;
         const serviceElements = manageServices.services.map(id => services[id])
-                                .map(p => (<ProcessElement name={p.name}
+                                .map(p => (<ProcessElement name={p.name} key={"element_"+p.id}
                                        description={p.description}
                                        href={"/#/services/edit/" + p.id}/>));
 

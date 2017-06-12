@@ -18,15 +18,17 @@ export default class EditService extends AuthenticatedComponent {
         this.handleBaseURLChange = this.handleBaseURLChange.bind(this);
         this.save = this.save.bind(this);
         this.resetted = false;
+        this.serviceID = this.props.routeParams.id !== undefined ? this.props.routeParams.id : null;
+        console.log(this.props);
+    }
+
+    componentDidMount(){
+        this.componentWillReceiveProps(this.props);
     }
 
     componentWillReceiveProps(nextProps){
-        const serviceID = this.props.location.pathname.substr(this.props.location.pathname.lastIndexOf('/') + 1);
-        if(serviceID.length > 0){
-            this.serviceID = serviceID;
-        } else {
-            this.serviceID = null;
-        }
+        console.log("Will receive props");
+        this.serviceID = this.props.routeParams.id !== undefined ? this.props.routeParams.id : null;
         const { services, manageServices } = nextProps;
         if(this.serviceID !== null){
             if(!this.serviceID in services) {
@@ -38,7 +40,7 @@ export default class EditService extends AuthenticatedComponent {
                     {...services[this.serviceID]}
                 ));
             } else {
-                console.log("igelWHKWHKSHLSDH");
+                console.log("Nothing");
             }
         } else if((!this.resetted) && manageServices.activeService.serviceData.id !== ""){ // Only reset if not reset already
             this.resetted = true;
@@ -48,6 +50,8 @@ export default class EditService extends AuthenticatedComponent {
                 "description": "",
                 "baseURL": ""
             }));
+        } else {
+            console.log("Noting happens");
         }
     }
 
