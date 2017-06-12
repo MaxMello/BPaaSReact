@@ -7,7 +7,7 @@ import OverviewHeader from "../components/elements/OverviewHeader";
 
 
 @connect((store) => {
-    return {user: store.user, processes: store.processes, useProcesses: store.useProcesses}
+    return {user: store.user, useProcesses: store.useProcesses}
 })
 export default class MyBilling extends AuthenticatedComponent {
     componentDidMount(){
@@ -34,7 +34,6 @@ export default class MyBilling extends AuthenticatedComponent {
                         <h1>Total: { price }$</h1>
                     </Col>
                 </Row>
-
             </div>
         );
     }

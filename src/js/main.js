@@ -50,3 +50,5 @@ ReactDOM.render(
             </Route>
         </Router>
     </Provider>, app);
+
+export default store;

@@ -48,7 +48,7 @@ function fetchProcessesError() {
 
 export function useProcess(user, id) {
     return (dispatch) => {
-        dispatch(fetchProcessRequest());
+        dispatch(fetchProcessRequest(id));
         return fetchProcess(user, id).then(([response, json]) => {
             if(response.status === 200){
                 dispatch(fetchProcessSuccess(json))
@@ -105,12 +105,9 @@ function fetchInstance(user, processID, instanceID) {
         .then( response => Promise.all([response, response.json()]));
 }
 
-function getInstanceRequest(id){
+function getInstanceRequest(){
     return {
-        type: ACTIONS.USE_PROCESS_INSTANCE_REQUEST,
-        payload: {
-            id
-        }
+        type: ACTIONS.USE_PROCESS_INSTANCE_REQUEST
     }
 }
 

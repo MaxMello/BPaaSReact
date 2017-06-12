@@ -37,7 +37,8 @@ export default function reducer(state=useProcesses, action) {
             return {...state, "activeProcess": {...state.activeProcess, "status": FETCH_STATUS.FETCH_SUCCESS,
                                                  "instance": {
                                                     "status": FETCH_STATUS.NOT_FETCHING,
-                                                    "instanceID": action.payload.instanceID
+                                                    "instanceID": action.payload.instanceID,
+                                                    "gui": ""
                                                  }}};
         }
         case ACTIONS.USE_PROCESS_USE_ERROR: {
@@ -49,7 +50,6 @@ export default function reducer(state=useProcesses, action) {
             }}};
         }
         case ACTIONS.USE_PROCESS_INSTANCE_SUCCESS: {
-            //TODO Correct payload access for url
             return {...state, "activeProcess": {...state.activeProcess, "instance": {...state.activeProcess.instance,
                 "status": FETCH_STATUS.FETCH_SUCCESS,
                 "gui": action.payload.gui
