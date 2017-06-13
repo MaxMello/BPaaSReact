@@ -5,7 +5,7 @@
   "author": "Max Wiechmann",
   "main": "webpack.config.js",
   "config": {
-    "docker_tag": "docker-hub.informatik.haw-hamburg.de/tti3/bpaas-frontend/image"
+    "docker_tag": "sow-stf.ful.informatik.haw-hamburg.de/max/frontend:latest"
   },
   "scripts": {
     "prebuild": "rm -rf build",
