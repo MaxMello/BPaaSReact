@@ -29,7 +29,16 @@ export default class UseProcess extends AuthenticatedComponent {
 
     load(){
         const userName = this.props.user.userData.name;
-        this.props.dispatch(useProcess(userName, this.processID));
+        const { useProcesses } = this.props;
+        if(useProcesses.activeProcess !== null
+            && useProcesses.activeProcess.status === FETCH_STATUS.FETCH_SUCCESS
+            && useProcesses.activeProcess.instance !== null
+            && useProcesses.activeProcess.instance.instanceID !== null){
+            const instanceID = useProcesses.activeProcess.instance.instanceID;
+            this.props.dispatch(queryProcessInstance(userName, this.processID, instanceID));
+        } else {
+            this.props.dispatch(useProcess(userName, this.processID));
+        }
     }
 
     componentWillReceiveProps(nextProps){
@@ -77,19 +86,6 @@ export default class UseProcess extends AuthenticatedComponent {
         const process = processes[this.processID];
         let iFrame = (<div className="embed-responsive embed-responsive-16by9" style={{"backgroundColor": "#f5f5f5"}}>
         </div>);
-        if(this.currentGUI !== null &&
-            useProcesses.activeProcess !== null
-            && useProcesses.activeProcess.status === FETCH_STATUS.FETCH_SUCCESS
-            && useProcesses.activeProcess.instance !== null
-            && useProcesses.activeProcess.instance.status === FETCH_STATUS.FETCH_SUCCESS){
-            iFrame = (
-                <div className="embed-responsive embed-responsive-16by9">
-                    <iframe className="embed-responsive-item" src={this.currentGUI}>
-                        IFrame not Supported
-                    </iframe>
-                </div>
-            );
-        }
         let statusMessage = "";
         if(this.currentGUI === ""){
             statusMessage = "Business Process finished.";
@@ -97,6 +93,13 @@ export default class UseProcess extends AuthenticatedComponent {
             statusMessage = "Business Process not yet started";
         } else {
             statusMessage = "Fetched BP from URL: " + this.currentGUI;
+            iFrame = (
+                <div className="embed-responsive embed-responsive-16by9">
+                    <iframe className="embed-responsive-item" src={this.currentGUI}>
+                        IFrame not Supported
+                    </iframe>
+                </div>
+            );
         }
         return (
             <div className="container">
