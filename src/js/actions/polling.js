@@ -1,11 +1,10 @@
 import { queryProcessInstance } from "./useProcessesActions";
 import { ACTIONS } from "../constants/constants";
-import { call, put, takeEvery, takeLatest, fork, take, race} from 'redux-saga/effects'
+import { call, put, fork, take, race} from 'redux-saga/effects'
 import store from "../main";
 
 function delay(millis) {
     return new Promise(resolve => {
-        console.log("Waiting to poll again..:");
         setTimeout(() => resolve(true), millis);
     });
 }
@@ -13,14 +12,13 @@ function delay(millis) {
 function* pollProcessInstance() {
     try {
         const state = store.getState();
-        console.log("PollProcessInstance - following data should exist");
-        console.log(state);
         const user = state.user.userData.name;
         const processID = state.useProcesses.activeProcess.processID;
         const instanceID = state.useProcesses.activeProcess.instance.instanceID;
-        console.log("UserName: " + user);
-        console.log("ProcessID: " + processID);
-        console.log("InstanceID: " + instanceID);
+        if(user === undefined || processID === undefined || instanceID === undefined){
+            console.log("Data for polling is missing!");
+            return;
+        }
         console.log("Wait 5 seconds, then call queryProcessInstance");
         yield call(delay, 5000);
         console.log("Calling queryProcessInstance");
@@ -42,7 +40,6 @@ function* watchPollData() {
 }
 
 export default function* rootSaga() {
-    console.log("ROOT SAGA");
     try {
         yield [
             fork(watchPollData)

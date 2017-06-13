@@ -118,7 +118,7 @@ function getInstanceSuccess(payload) {
     }
 }
 
-function getInstanceError() {
+export function getInstanceError() {
     return {
         type: ACTIONS.USE_PROCESS_INSTANCE_ERROR
     }

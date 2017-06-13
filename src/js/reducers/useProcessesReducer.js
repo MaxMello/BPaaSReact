@@ -38,7 +38,7 @@ export default function reducer(state=useProcesses, action) {
                                                  "instance": {
                                                     "status": FETCH_STATUS.NOT_FETCHING,
                                                     "instanceID": action.payload.instanceID,
-                                                    "gui": ""
+                                                    "gui": null
                                                  }}};
         }
         case ACTIONS.USE_PROCESS_USE_ERROR: {
@@ -50,9 +50,15 @@ export default function reducer(state=useProcesses, action) {
             }}};
         }
         case ACTIONS.USE_PROCESS_INSTANCE_SUCCESS: {
+            let newGUI = action.payload.gui;
+            if(state.activeProcess.instance.gui === null && newGUI === ""){
+                // If the initial state (null) is still active and the given new GUI URL is empty string,
+                // That means there is not yet a gui to show, so don't change the GUI url
+                    newGUI = null;
+            }
             return {...state, "activeProcess": {...state.activeProcess, "instance": {...state.activeProcess.instance,
                 "status": FETCH_STATUS.FETCH_SUCCESS,
-                "gui": action.payload.gui
+                "gui": newGUI
             }}};
         }
         case ACTIONS.USE_PROCESS_INSTANCE_ERROR: {

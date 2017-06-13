@@ -4,7 +4,7 @@ import AuthenticatedComponent from "./AuthenticatedComponent";
 import { Row, Col} from "react-bootstrap";
 import OverviewHeader from "../components/elements/OverviewHeader";
 import { FETCH_STATUS } from "../constants/constants";
-import { useProcess, queryProcessInstance, loadProcesses } from "./../actions/useProcessesActions";
+import { useProcess, queryProcessInstance, loadProcesses, getInstanceError } from "./../actions/useProcessesActions";
 
 
 @connect((store) => {
@@ -21,6 +21,10 @@ export default class UseProcess extends AuthenticatedComponent {
 
     componentDidMount(){
         this.load();
+    }
+
+    componentWillUnmount() {
+        this.props.dispatch(getInstanceError());
     }
 
     load(){
@@ -42,11 +46,6 @@ export default class UseProcess extends AuthenticatedComponent {
             const userName = user.userData.name;
             const instanceID = useProcesses.activeProcess.instance.instanceID;
             this.props.dispatch(queryProcessInstance(userName, this.processID, instanceID));
-        } else if(useProcesses.activeProcess !== null
-            && useProcesses.activeProcess.status === FETCH_STATUS.FETCH_SUCCESS
-            && useProcesses.activeProcess.instance !== null
-            && useProcesses.activeProcess.instance.status === FETCH_STATUS.FETCH_SUCCESS){
-            this.currentGUI = useProcesses.activeProcess.instance.gui;
         }
     }
 
@@ -58,20 +57,16 @@ export default class UseProcess extends AuthenticatedComponent {
             && useProcesses.activeProcess.instance !== null
             && useProcesses.activeProcess.instance.status === FETCH_STATUS.FETCH_SUCCESS){
             let url = useProcesses.activeProcess.instance.gui;
-            console.log("URL: " + url);
-            if(this.currentGUI !== url){
-                console.log("Yes!");
-                if(url === ""){
-                    url = "localhost:8000";
-                }
-                this.currentGUI = url;
-                return true;
-            } else {
+            if(this.currentGUI === url){
                 console.log("No");
                 return false;
+            } else {
+                this.currentGUI = url;
+                console.log("Yes");
+                return true;
             }
         } else {
-            console.log("No");
+            console.log("Top level condition is false");
         }
         return false;
     }
@@ -80,7 +75,8 @@ export default class UseProcess extends AuthenticatedComponent {
         super.render();
         const { processes, useProcesses } = this.props;
         const process = processes[this.processID];
-        let iFrame = (<div/>);
+        let iFrame = (<div className="embed-responsive embed-responsive-16by9" style={{"backgroundColor": "#f5f5f5"}}>
+        </div>);
         if(this.currentGUI !== null &&
             useProcesses.activeProcess !== null
             && useProcesses.activeProcess.status === FETCH_STATUS.FETCH_SUCCESS
@@ -94,6 +90,14 @@ export default class UseProcess extends AuthenticatedComponent {
                 </div>
             );
         }
+        let statusMessage = "";
+        if(this.currentGUI === ""){
+            statusMessage = "Business Process finished.";
+        } else if(this.currentGUI === null){
+            statusMessage = "Business Process not yet started";
+        } else {
+            statusMessage = "Fetched BP from URL: " + this.currentGUI;
+        }
         return (
             <div className="container">
                 <OverviewHeader title={process.name} status={useProcesses.activeProcess.status} buttonOnClick={this.load}/>
@@ -101,6 +105,9 @@ export default class UseProcess extends AuthenticatedComponent {
                     <Col xs={12}>
                         <p>{process.description}</p>
                         {iFrame}
+                    </Col>
+                    <Col xs={12} className="text-center">
+                        {statusMessage}
                     </Col>
                 </Row>
             </div>
