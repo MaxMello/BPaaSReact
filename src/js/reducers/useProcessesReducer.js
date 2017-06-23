@@ -66,6 +66,13 @@ export default function reducer(state=useProcesses, action) {
                 "status": FETCH_STATUS.FETCH_ERROR
             }}};
         }
+        case ACTIONS.USE_PROCESS_RESET_ON_FINISH: {
+            return {...state, "activeProcess": {
+                    "status": FETCH_STATUS.NOT_FETCHING,
+                    "processID": null,
+                    "instance": null
+            }};
+        }
         case ACTIONS.BILLING_REQUEST: {
             return {...state, "billing": {...state.billing, "status": FETCH_STATUS.FETCHING}}
         }

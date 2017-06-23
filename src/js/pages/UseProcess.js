@@ -4,7 +4,7 @@ import AuthenticatedComponent from "./AuthenticatedComponent";
 import { Row, Col} from "react-bootstrap";
 import OverviewHeader from "../components/elements/OverviewHeader";
 import { FETCH_STATUS } from "../constants/constants";
-import { useProcess, queryProcessInstance, loadProcesses, getInstanceError } from "./../actions/useProcessesActions";
+import { useProcess, queryProcessInstance, loadProcesses, getInstanceError, resetUseProcess } from "./../actions/useProcessesActions";
 
 
 @connect((store) => {
@@ -25,6 +25,10 @@ export default class UseProcess extends AuthenticatedComponent {
 
     componentWillUnmount() {
         this.props.dispatch(getInstanceError());
+        if(this.currentGUI === ""){
+            // The process is finished, so we will remove the instance from state
+            this.props.dispatch(resetUseProcess());
+        }
     }
 
     load(){

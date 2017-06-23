@@ -124,6 +124,12 @@ export function getInstanceError() {
     }
 }
 
+export function resetUseProcess(){
+    return {
+        type: ACTIONS.USE_PROCESS_RESET_ON_FINISH
+    }
+}
+
 
 // Billing
 
