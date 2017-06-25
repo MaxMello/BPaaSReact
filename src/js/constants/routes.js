@@ -1,5 +1,4 @@
-const debug = process.env.NODE_ENV !== "production";
-const baseURL = debug ? "https://sow-stf.ful.informatik.haw-hamburg.de/api/" : "/api/";
+const baseURL = "https://sow-stf.ful.informatik.haw-hamburg.de/api/";
 const version = "v1/";
 
 export const ROUTES = {
