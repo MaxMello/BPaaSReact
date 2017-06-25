@@ -5,9 +5,10 @@ eine HTML-Seite geladen. Alle Unterseiten werden dynamisch mit Javascript generi
 der Webseite gehören das Einloggen (Definieren eines Nutzernamens, der für andere Requests als Identifier genutzt wird),
 das Auflisten und Nutzen von Business Processen, das Anbieten und Erstellen von Business-Prozessen, sowie
 das Anbieten und Integrieren von einzelnen Services.
+![Home Page](http://i.imgur.com/orOm5Nu.jpg)
 
 <h2> Ansprechpartner </h2>
-Max Wiechmann (@abq353 / @max auf Slack)
+Max Wiechmann
 
 <h2> Technologien </h2>
 Das Frontend nutzt das von Facebook entwickelte Framework ReactJS zur Darstellung 
