@@ -30,7 +30,7 @@ export default class EditProcess extends AuthenticatedComponent {
     }
 
     componentWillReceiveProps(nextProps){
-        const processID = this.props.location.pathname.substr(this.props.location.pathname.lastIndexOf('/') + 1);
+        const processID = this.props.routeParams.id !== undefined ? this.props.routeParams.id : "";
         if(processID.length > 0){
             this.processID = processID;
         } else {
