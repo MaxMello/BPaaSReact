@@ -20,7 +20,7 @@ function* pollProcessInstance() {
             return;
         }
         console.log("Wait 5 seconds, then call queryProcessInstance");
-        yield call(delay, 5000);
+        yield call(delay, 1500);
         console.log("Calling queryProcessInstance");
         yield put(queryProcessInstance(user, processID, instanceID));
     } catch (error) {
